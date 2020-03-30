@@ -4,15 +4,14 @@ require_once("perpage.php");
 require_once("koneksi.php");
 $db_handle = new Koneksi();
 
-$no_rm = "";
-$no_ktp = "";
+$nama_penyakit = "";
 
 $queryCondition = "";
 if (!empty($_POST["search"])) {
   foreach ($_POST["search"] as $k => $v) {
     if (!empty($v)) {
 
-      $queryCases = array("no_rm", "no_ktp");
+      $queryCases = array("nama_penyakit");
       if (in_array($k, $queryCases)) {
         if (!empty($queryCondition)) {
           $queryCondition .= " AND ";
@@ -21,21 +20,17 @@ if (!empty($_POST["search"])) {
         }
       }
       switch ($k) {
-        case "no_rm":
-          $no_rm = $v;
-          $queryCondition .= "no_rm LIKE '" . $v . "%'";
-          break;
-        case "no_ktp":
-          $no_ktp = $v;
-          $queryCondition .= "no_ktp LIKE '" . $v . "%'";
+        case "nama_penyakit":
+          $nama_penyakit = $v;
+          $queryCondition .= "nama_penyakit LIKE '" . $v . "%'";
           break;
       }
     }
   }
 }
-$orderby = " ORDER BY no_rm desc";
-$sql = "SELECT * FROM tbl_rm " . $queryCondition;
-$href = 'daftar_pasien.php';
+$orderby = " ORDER BY id_penyakit desc";
+$sql = "SELECT * FROM tbl_pendaftarans " . $queryCondition;
+$href = 'history_pendaftaran.php';
 
 $perPage = 10;
 $page = 1;
@@ -60,7 +55,7 @@ if (!empty($result)) {
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Data Pasien</h1>
+          <h1>History Pendaftaran</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -70,26 +65,26 @@ if (!empty($result)) {
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <a class="btn btn-primary" href="input_pasien.php">+ Tambah Data</a>
+        <a class="btn btn-primary" href="input_penyakit.php">+ Tambah Data</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <form name="frmSearch" method="post" action="daftar_pasien.php">
+        <form name="frmSearch" method="post" action="history_pendaftaran.php">
           <div class="search-box">
             <p>
-              <input type="text" placeholder="No rekam medis" name="search[no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />
-              <input type="text" placeholder="No KTP" name="search[no_ktp]" class="demoInputBox" value="<?php echo $no_ktp; ?>" />
+              <input type="text" placeholder="Nama Penyakit" name="search[nama_penyakit]" class="demoInputBox" value="<?php echo $nama_penyakit; ?>" />
               <input type="submit" name="go" class="btnSearch" value="Search">
-              <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_pasien.php'">
+              <input type="reset" class="btnSearch" value="Reset" onclick="window.location='history_pendaftaran.php'">
             </p>
           </div>
+
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>No Rekam Medis</th>
-                <th>No KTP</th>
-                <th>Nama</th>
-                <th>Alamat</th>
+                <th>ID Pendaftaran</th>
+                <th>No RM Pendaftar</th>
+                <th>Nama Pendaftar</th>
+                <th>Tanggal Mendaftar</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -100,13 +95,11 @@ if (!empty($result)) {
                   if (is_numeric($k)) {
               ?>
                     <tr>
-                      <td><?php echo $result[$k]["no_rm"]; ?></td>
-                      <td><?php echo $result[$k]["no_ktp"]; ?></td>
-                      <td><?php echo $result[$k]["nama"]; ?></td>
-                      <td><?php echo $result[$k]["alamat"]; ?></td>
+                      <td><?php echo $result[$k]["id_penyakit"]; ?></td>
+                      <td><?php echo $result[$k]["nama_penyakit"]; ?></td>
                       <td>
-                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
-                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
+                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_penyakit.php?id_penyakit=<?php echo $result[$k]["id_penyakit"]; ?>"></a>
+                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_penyakit.php?id_penyakit=<?php echo $result[$k]["id_penyakit"]; ?>"></a>
                       </td>
                     </tr>
                 <?php

@@ -4,15 +4,14 @@ require_once("perpage.php");
 require_once("koneksi.php");
 $db_handle = new Koneksi();
 
-$no_rm = "";
-$no_ktp = "";
+$nama_desa = "";
 
 $queryCondition = "";
 if (!empty($_POST["search"])) {
   foreach ($_POST["search"] as $k => $v) {
     if (!empty($v)) {
 
-      $queryCases = array("no_rm", "no_ktp");
+      $queryCases = array("nama_desa");
       if (in_array($k, $queryCases)) {
         if (!empty($queryCondition)) {
           $queryCondition .= " AND ";
@@ -21,21 +20,17 @@ if (!empty($_POST["search"])) {
         }
       }
       switch ($k) {
-        case "no_rm":
-          $no_rm = $v;
-          $queryCondition .= "no_rm LIKE '" . $v . "%'";
-          break;
-        case "no_ktp":
-          $no_ktp = $v;
-          $queryCondition .= "no_ktp LIKE '" . $v . "%'";
+        case "nama_desa":
+          $nama_desa = $v;
+          $queryCondition .= "nama_desa LIKE '" . $v . "%'";
           break;
       }
     }
   }
 }
-$orderby = " ORDER BY no_rm desc";
-$sql = "SELECT * FROM tbl_rm " . $queryCondition;
-$href = 'daftar_pasien.php';
+$orderby = " ORDER BY id_desa desc";
+$sql = "SELECT * FROM tbl_desa " . $queryCondition;
+$href = 'daftar_desa.php';
 
 $perPage = 10;
 $page = 1;
@@ -60,7 +55,7 @@ if (!empty($result)) {
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Data Pasien</h1>
+          <h1>Data Desa</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -70,26 +65,24 @@ if (!empty($result)) {
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <a class="btn btn-primary" href="input_pasien.php">+ Tambah Data</a>
+        <a class="btn btn-primary" href="input_desa.php">+ Tambah Data</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <form name="frmSearch" method="post" action="daftar_pasien.php">
+        <form name="frmSearch" method="post" action="daftar_desa.php">
           <div class="search-box">
             <p>
-              <input type="text" placeholder="No rekam medis" name="search[no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />
-              <input type="text" placeholder="No KTP" name="search[no_ktp]" class="demoInputBox" value="<?php echo $no_ktp; ?>" />
+              <input type="text" placeholder="Nama Desa" name="search[nama_desa]" class="demoInputBox" value="<?php echo $nama_desa; ?>" />
               <input type="submit" name="go" class="btnSearch" value="Search">
-              <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_pasien.php'">
+              <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_desa.php'">
             </p>
           </div>
+
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>No Rekam Medis</th>
-                <th>No KTP</th>
-                <th>Nama</th>
-                <th>Alamat</th>
+                <th>ID Desa</th>
+                <th>Nama Desa</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -100,13 +93,11 @@ if (!empty($result)) {
                   if (is_numeric($k)) {
               ?>
                     <tr>
-                      <td><?php echo $result[$k]["no_rm"]; ?></td>
-                      <td><?php echo $result[$k]["no_ktp"]; ?></td>
-                      <td><?php echo $result[$k]["nama"]; ?></td>
-                      <td><?php echo $result[$k]["alamat"]; ?></td>
+                      <td><?php echo $result[$k]["id_desa"]; ?></td>
+                      <td><?php echo $result[$k]["nama_desa"]; ?></td>
                       <td>
-                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
-                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
+                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_desa.php?id_desa=<?php echo $result[$k]["id_desa"]; ?>"></a>
+                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_desa.php?id_desa=<?php echo $result[$k]["id_desa"]; ?>"></a>
                       </td>
                     </tr>
                 <?php

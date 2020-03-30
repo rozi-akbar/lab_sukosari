@@ -2,7 +2,7 @@
 session_start();
 ini_set("display_errors", "Off");
 //cek level user
-?>  
+?>
 <!DOCTYPE html>
 <html>
 
@@ -25,7 +25,7 @@ ini_set("display_errors", "Off");
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background: url(dist/img/background.png) no-repeat fixed; background-size: cover;">
     <div class="login-box">
         <!-- /.login-logo -->
         <div class="card">

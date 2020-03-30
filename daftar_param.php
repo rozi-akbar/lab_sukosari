@@ -108,7 +108,8 @@ if (!empty($result)) {
                                             <td><?php echo $result[$k]["metoda"]; ?></td>
                                             <td><?php echo $result[$k]["harga"]; ?></td>
                                             <td>
-                                                <a href="edit_param.php?ID=<?php echo $result[$k]["id_param"]; ?>">Edit</a> / <a href="delete_param.php?ID=<?php echo $result[$k]["id+param"]; ?>">Delete</a>
+                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_param.php?ID=<?php echo $result[$k]["id_param"]; ?>"></a>
+                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_param.php?ID=<?php echo $result[$k]["id+param"]; ?>"></a>
                                             </td>
                                         </tr>
                                 <?php

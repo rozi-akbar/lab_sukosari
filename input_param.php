@@ -8,7 +8,7 @@ if (!empty($_POST["submit"])) {
   if (!$result) {
     $message = "Problem in Adding to database. Please Retry.";
   } else {
-    header("Location:daftarparam.php");
+    header("Location:daftar_param.php");
   }
 }
 require('header.php');

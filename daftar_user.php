@@ -104,7 +104,8 @@ if (!empty($result)) {
                       <td><?php echo $result[$k]["nama"]; ?></td>
                       <td><?php echo $result[$k]["password"]; ?></td>
                       <td>
-                        <a href="edit_user.php?ID=<?php echo $result[$k]["ID"]; ?>">Edit</a> / <a href="delete_user.php?ID=<?php echo $result[$k]["ID"]; ?>">Delete</a>
+                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_user.php?ID=<?php echo $result[$k]["ID"]; ?>"></a>
+                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_user.php?ID=<?php echo $result[$k]["ID"]; ?>"></a>
                       </td>
                     </tr>
                 <?php

@@ -6,7 +6,7 @@ session_start();
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Blank Page</title>
+  <title>Laboratorium PKM Sukosari</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,6 +16,9 @@ session_start();
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -63,11 +66,17 @@ session_start();
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link">
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">Lab PKM Sukosari</span>
       </a>
 
       <!-- Sidebar -->
       <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="info">
+            <a href="#" class="d-block">Date: <?php echo date('l, d-m-Y'); ?></a>
+          </div>
+        </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -82,21 +91,46 @@ session_start();
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="daftar_periksa.php" class="nav-link">
-                <i class="nav-icon far fa-image"></i>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-vial"></i>
                 <p>
-                  Data Periksa
+                  Proses
+                  <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
-            </li>
-            <li class="nav-item">
-              <a href="daftar_pasien.php" class="nav-link">
-                <i class="nav-icon far fa-image"></i>
-                <p>
-                  Data Pasien
-                </p>
-              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="daftar_pendaftaran.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Pendaftaran</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="history_pendaftaran.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>History Pendaftaran</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="daftar_periksa.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Daftar Periksa</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="daftar_pasien.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Daftar Pasien</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
@@ -117,6 +151,18 @@ session_start();
                   <a href="daftar_paket_param.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Paket Parameter</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="daftar_desa.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Desa</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="daftar_penyakit.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Penyakit</p>
                   </a>
                 </li>
               </ul>
