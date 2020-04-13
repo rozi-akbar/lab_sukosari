@@ -33,9 +33,11 @@ if (!empty($_POST["search"])) {
     }
   }
 }
-$orderby = " ORDER BY hl.no_rm desc";
-$sql = "SELECT hl.id_hasil_lab, hl.no_rm, rm.no_ktp, rm.nama, hl.diagnosa, hl.tanggal FROM tbl_hasil_lab hl JOIN tbl_rm rm WHERE rm.no_rm=hl.no_rm" . $queryCondition;
-$href = 'daftar_periksa.php';
+$orderby = " ORDER BY tbl1.id_pendaftaran desc";
+$sql = "SELECT * FROM tbl_hasil tbl1
+JOIN tbl_pendaftaran tbl2 ON tbl2.id_pendaftaran=tbl1.id_pendaftaran
+JOIN tbl_rm tbl3 ON tbl3.no_rm=tbl2.no_rm" . $queryCondition." GROUP BY tbl1.id_pendaftaran";
+$href = 'daftar_periksa2.php';
 
 $perPage = 10;
 $page = 1;
@@ -60,7 +62,7 @@ if (!empty($result)) {
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h3>Data Rekam Medis</h3>
+          <h1>Data Hasil Lab</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -70,27 +72,26 @@ if (!empty($result)) {
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <h1>Hasil Lab</h1>
+        <h5>Hasil Lab</h5>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <form name="frmSearch" method="post" action="daftar_periksa.php">
+        <form name="frmSearch" method="post" action="daftar_periksa2.php">
           <div class="search-box">
             <p>
               <input type="text" placeholder="No rekam medis" name="search[no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />
               <input type="text" placeholder="No KTP" name="search[diagnosa]" class="demoInputBox" value="<?php echo $diagnosa; ?>" />
               <input type="submit" name="go" class="btnSearch" value="Search">
-              <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_periksa.php'">
+              <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_periksa2.php'">
             </p>
           </div>
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>No Rekam Medis</th>
-                <th>No KTP</th>
-                <th>Nama</th>
-                <th>Diagnosa</th>
-                <th>Tanggal</th>
+                <th>No REG</th>
+                <th>No RM</th>
+                <th>Nama Pasien</th>
+                <th>Tanggal Input Data</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -101,13 +102,12 @@ if (!empty($result)) {
                   if (is_numeric($k)) {
               ?>
                     <tr>
+                      <td><?php echo $result[$k]["id_pendaftaran"]; ?></td>
                       <td><?php echo $result[$k]["no_rm"]; ?></td>
-                      <td><?php echo $result[$k]["no_ktp"]; ?></td>
                       <td><?php echo $result[$k]["nama"]; ?></td>
-                      <td><?php echo $result[$k]["diagnosa"]; ?></td>
-                      <td><?php echo $result[$k]["tanggal"]; ?></td>
+                      <td><?php echo $result[$k]["waktu_input"]; ?></td>
                       <td>
-                        <a href="cetak_hasil_lab.php?id=<?php echo $result[$k]["id_hasil_lab"]; ?>">Cetak</a>
+                        <a type="button" class="btn btn-outline-primary btn-xs far fa-file-pdf" href="cetak_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Cetak</a>
                       </td>
                     </tr>
                 <?php

@@ -2,7 +2,7 @@
   <div class="float-right d-none d-sm-block">
     <b>Version</b> 0.1
   </div>
-  <strong>Copyright &copy; 2020 RoziRA</a>.</strong> All rights reserved.
+  <strong>Copyright &copy; 2020 RoziRA & Firman NS</a>.</strong> All rights reserved.
 </footer>
 
 <!-- Control Sidebar -->
@@ -19,10 +19,40 @@
 <script src="plugins/select2/js/select2.full.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- date-range-picker -->
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script type="text/javascript" src="dist/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="dist/js/bootstrap-datetimepicker.pt-BR.js"></script>
+<script type="text/javascript"
+     src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+    </script> 
+    <script type="text/javascript"
+     src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+    </script>
+    <script type="text/javascript"
+     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+    </script>
+    <script type="text/javascript"
+     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+    </script>
+    <script type="text/javascript">
+      $('#datetimepicker').datetimepicker({
+        format: 'dd/MM/yyyy hh:mm:ss',
+        language: 'pt-BR'
+      });
+    </script>
+<script type="text/javascript">
+  $(function() {
+    $('#datetimepicker1').datetimepicker({
+      language: 'pt-BR'
+    });
+  });
+</script>
 <script>
   $(function() {
     //Initialize Select2 Elements
@@ -32,6 +62,8 @@
     $('.select2bs4').select2({
       theme: 'bootstrap4'
     })
+
+    $('#datetimepicker1').datetimepicker()
 
     //Datemask dd/mm/yyyy
     $('#datemask').inputmask('dd/mm/yyyy', {
@@ -51,7 +83,7 @@
       timePicker: true,
       timePickerIncrement: 30,
       locale: {
-        format: 'MM/DD/YYYY hh:mm A'
+        format: 'MM/DD/YYYY hh:mm:ss'
       }
     })
     //Date range as a button

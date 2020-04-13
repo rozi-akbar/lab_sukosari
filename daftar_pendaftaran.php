@@ -70,7 +70,7 @@ if (!empty($result)) {
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <h4>Data Pasien</h4>
+                <a class="btn btn-primary" href="input_pasien.php">+ Tambah Data Pasien</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -107,7 +107,9 @@ if (!empty($result)) {
                                             <td><?php echo $result[$k]["tgl_lahir"]; ?></td>
                                             <td><?php echo $result[$k]["alamat"]; ?></td>
                                             <td align="center">
-                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-check-square" href="input_pendaftaran.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
+                                                <a type="button" class="btn btn-outline-success btn-xs fas fa-check-square" href="input_pendaftaran.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
+                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
+                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
                                             </td>
                                         </tr>
                                 <?php

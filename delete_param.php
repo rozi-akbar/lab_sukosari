@@ -1,14 +1,13 @@
 <?php
 require_once("koneksi.php");
 $db_handle = new Koneksi();
-if(!empty($_GET["id"])) {
-    $query = "DELETE FROM tbl_rm WHERE no_rm='" . $_GET["id"] . "' ";
+if(!empty($_GET["ID"])) {
+    $query = "DELETE FROM tbl_param WHERE id_param='" . $_GET["ID"] . "' ";
     $result = $db_handle->executeQuery($query);
 	if(!$result){
         $message = "Problem in Delete! Please Retry!";
-        echo"";
 	} else {
-		header("Location:daftar_pendaftaran.php");
+		header("Location:daftar_param.php");
 	}
 }
 ?>

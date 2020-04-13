@@ -5,9 +5,9 @@ if (!empty($_POST["submit"])) {
     $id_paket = $_POST['id_paket'];
     $jumlah_dipilih = count($id_paket);
     for ($x = 0; $x < $jumlah_dipilih; $x++) {
-        $query = "INSERT INTO tbl_pendaftaran(id_pendaftaran, no_rm, id_penyakit, id_paket, tgl_daftar, permintaan, waktu_diterima, status) 
+        $query = "INSERT INTO tbl_pendaftaran(id_pendaftaran, no_rm, id_penyakit, id_paket, tgl_daftar, permintaan, status) 
         VALUES('" . $_POST["id_pendaftaran"] . "','" . $_POST["no_rm"] . "','" . $_POST["id_penyakit"] . "','$id_paket[$x]',
-        '" . $_POST["tgl_daftar"] . "','" . $_POST["permintaan"] . "','" . $_POST["waktu_diterima"] . "','0');";
+        '" . $_POST["tgl_daftar"] . "','" . $_POST["permintaan"] . "','0');";
         $result3 = $db_handle->executeQuery($query);
     }
     if (!$result3) {
@@ -22,6 +22,7 @@ $uniqueID = uniqid();
 $result = $db_handle->runQuery("SELECT * FROM tbl_rm WHERE no_rm='" . $_GET["id"] . "'");
 $result2 = $db_handle->runQuery("SELECT * FROM tbl_penyakit;");
 $result3 = $db_handle->runQuery("SELECT * FROM tbl_paket_param GROUP BY id_paket;");
+$result6 = $db_handle->runQuery("SELECT * FROM tbl_permintaan;");
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -61,11 +62,7 @@ $result3 = $db_handle->runQuery("SELECT * FROM tbl_paket_param GROUP BY id_paket
                         <input type="text" class="form-control" name="no_ktp" value="<?php echo $result[0]["no_ktp"]; ?>">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Umur</label>
-                        <input type="text" class="form-control" name="umur">
-                    </div>
-                    <div class="form-group">
-                        <label>Minimal</label>
+                        <label>Diagnosa</label>
                         <select class="form-control select2bs4" name="id_penyakit">
                             <?php
                             if (!empty($result2)) {
@@ -82,15 +79,23 @@ $result3 = $db_handle->runQuery("SELECT * FROM tbl_paket_param GROUP BY id_paket
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Tanggal</label>
-                        <input type="date" class="form-control" name="tgl_daftar">
+                        <input type="datetime-local" class="form-control col-sm-2" name="tgl_daftar">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Atas Permintaan</label>
-                        <input type="text" class="form-control" id="permintaan" name="permintaan">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Jam Sampel Diterima</label>
-                        <input type="text" class="form-control" id="diterima" name="waktu_diterima">
+                        <label>Atas Permintaan</label>
+                        <select class="form-control select2bs4" name="permintaan">
+                            <?php
+                            if (!empty($result6)) {
+                                foreach ($result6 as $a => $v) {
+                                    if (is_numeric($a)) {
+                            ?>
+                                        <option value="<?php echo $result6[$a]["nama_peminta"] ?>"><?php echo $result6[$a]["nama_peminta"]; ?></option>
+                            <?php
+                                    }
+                                }
+                            }
+                            ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <div class="row">

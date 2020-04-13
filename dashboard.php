@@ -21,7 +21,15 @@ require('header.php');
         <h3 class="card-title">Selamat Datang</h3>
       </div>
       <!-- /.card-header -->
-      
+      <div class="card-body">
+        <div id="datetimepicker" class="input-append date">
+          <input type="text"></input>
+          <span class="add-on">
+            <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+          </span>
+        </div>
+      </div>
+
     </div>
     <!-- End Right col -->
   </section>

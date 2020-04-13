@@ -2,14 +2,14 @@
 session_start();
 ini_set("display_errors", "Off");
 //cek level user
-?>
+?>  
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Log in</title>
+    <title>Lab PKM Sukosari | Log in</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,7 +25,11 @@ ini_set("display_errors", "Off");
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
-<body class="hold-transition login-page" style="background: url(dist/img/background.png) no-repeat fixed; background-size: cover;">
+<body class="hold-transition login-page" style="
+    background-image: url('dist/img/background.jpg'); 
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;">
     <div class="login-box">
         <!-- /.login-logo -->
         <div class="card">
@@ -60,8 +64,9 @@ ini_set("display_errors", "Off");
             </div>
             <!-- /.login-card-body -->
         </div>
-    </div>
     <!-- /.login-box -->
+
+    </div>
 
     <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>

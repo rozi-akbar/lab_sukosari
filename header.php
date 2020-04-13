@@ -19,6 +19,7 @@ session_start();
   <!-- Select2 -->
   <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <link rel="stylesheet" href="dist/css/bootstrap-datetimepicker.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -117,24 +118,16 @@ session_start();
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="daftar_periksa.php" class="nav-link">
+                  <a href="daftar_periksa2.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Periksa</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="daftar_pasien.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Daftar Pasien</p>
                   </a>
                 </li>
               </ul>
             </li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
+                <i class="nav-icon fas fa-database"></i>
                 <p>
                   Master Data
                   <i class="fas fa-angle-left right"></i>

@@ -4,14 +4,14 @@ require_once("perpage.php");
 require_once("koneksi.php");
 $db_handle = new Koneksi();
 
-$nama_penyakit = "";
+$no_rm = "";
 
 $queryCondition = "";
 if (!empty($_POST["search"])) {
   foreach ($_POST["search"] as $k => $v) {
     if (!empty($v)) {
 
-      $queryCases = array("nama_penyakit");
+      $queryCases = array("no_rm");
       if (in_array($k, $queryCases)) {
         if (!empty($queryCondition)) {
           $queryCondition .= " AND ";
@@ -20,16 +20,16 @@ if (!empty($_POST["search"])) {
         }
       }
       switch ($k) {
-        case "nama_penyakit":
-          $nama_penyakit = $v;
-          $queryCondition .= "nama_penyakit LIKE '" . $v . "%'";
+        case "no_rm":
+          $no_rm = $v;
+          $queryCondition .= "no_rm LIKE '" . $v . "%'";
           break;
       }
     }
   }
 }
-$orderby = " ORDER BY id_penyakit desc";
-$sql = "SELECT * FROM tbl_pendaftarans " . $queryCondition;
+$orderby = " ORDER BY p.id_pendaftaran desc";
+$sql = "SELECT p.id_pendaftaran, rm.no_rm, rm.nama, p.tgl_daftar FROM tbl_pendaftaran as p JOIN tbl_rm as rm WHERE p.no_rm = rm.no_rm GROUP BY p.id_pendaftaran" . $queryCondition;
 $href = 'history_pendaftaran.php';
 
 $perPage = 10;
@@ -72,7 +72,7 @@ if (!empty($result)) {
         <form name="frmSearch" method="post" action="history_pendaftaran.php">
           <div class="search-box">
             <p>
-              <input type="text" placeholder="Nama Penyakit" name="search[nama_penyakit]" class="demoInputBox" value="<?php echo $nama_penyakit; ?>" />
+              <input type="text" placeholder="Nama Penyakit" name="search[no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />
               <input type="submit" name="go" class="btnSearch" value="Search">
               <input type="reset" class="btnSearch" value="Reset" onclick="window.location='history_pendaftaran.php'">
             </p>
@@ -95,8 +95,10 @@ if (!empty($result)) {
                   if (is_numeric($k)) {
               ?>
                     <tr>
-                      <td><?php echo $result[$k]["id_penyakit"]; ?></td>
-                      <td><?php echo $result[$k]["nama_penyakit"]; ?></td>
+                      <td><?php echo $result[$k]["id_pendaftaran"]; ?></td>
+                      <td><?php echo $result[$k]["no_rm"]; ?></td>
+                      <td><?php echo $result[$k]["nama"]; ?></td>
+                      <td><?php echo $result[$k]["tgl_daftar"]; ?></td>
                       <td>
                         <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_penyakit.php?id_penyakit=<?php echo $result[$k]["id_penyakit"]; ?>"></a>
                         <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_penyakit.php?id_penyakit=<?php echo $result[$k]["id_penyakit"]; ?>"></a>

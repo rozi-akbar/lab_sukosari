@@ -17,7 +17,7 @@ if ($op == "in") {
         header("location:dashboard.php");
     } else {
         echo '<script> alert("Username atau Password salah");'
-        . 'window.location = "../login";</script>';
+        . 'window.location = "index.php";</script>';
     }
 } else if ($op == "out") {
     unset($_SESSION['ID']);

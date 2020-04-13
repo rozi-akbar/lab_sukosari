@@ -11,7 +11,6 @@ $result4 = $db_handle->runQuery("SELECT * FROM tbl_hasil tbl1
 JOIN tbl_param tbl2 ON tbl2.id_param = tbl1.id_param
 WHERE tbl1.id_pendaftaran = '" . $id_pendaftaran . "'
 ORDER BY tbl1.id_paket;");
-ob_start();
 ?>
 <html>
 
@@ -130,11 +129,3 @@ ob_start();
 </body>
 
 </html>
-<?php
-$content = ob_get_contents();
-ob_end_clean();
-require_once "./mpdf/vendor/autoload.php";
-$mpdf = new \Mpdf\Mpdf();
-$mpdf->AddPage("P", "", "", "", "", "15", "15", "15", "15", "", "", "", "", "", "", "", "", "", "", "", "A4");
-$mpdf->WriteHTML($content);
-$mpdf->Output();

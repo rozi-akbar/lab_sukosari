@@ -4,38 +4,40 @@ require_once("perpage.php");
 require_once("koneksi.php");
 $db_handle = new Koneksi();
 
-$id_param = "";
-$nama_param = "";
+$nama_pendaftar = "";
+$tanggal = "";
 
 $queryCondition = "";
+$groupby = "";
 if (!empty($_POST["search"])) {
     foreach ($_POST["search"] as $k => $v) {
         if (!empty($v)) {
 
-            $queryCases = array("id_param", "nama_param");
+            $queryCases = array("nama_pendaftar", "tanggal");
             if (in_array($k, $queryCases)) {
                 if (!empty($queryCondition)) {
                     $queryCondition .= " AND ";
                 } else {
-                    $queryCondition .= " WHERE ";
+                    $queryCondition .= " AND ";
+                    $groupby .= " GROUP BY p.id_pendaftaran ";
                 }
             }
             switch ($k) {
-                case "username":
-                    $id_param = $v;
-                    $queryCondition .= "id_param LIKE '" . $v . "%'";
+                case "nama_pendaftar":
+                    $nama_pendaftar = $v;
+                    $queryCondition .= "rm.nama LIKE '" . $v . "%'";
                     break;
-                case "nama":
-                    $nama_param = $v;
-                    $queryCondition .= "nama_param LIKE '" . $v . "%'";
+                case "tanggal":
+                    $tanggal = $v;
+                    $queryCondition .= "p.tgl_daftar LIKE '" . $v . "%'";
                     break;
             }
         }
     }
 }
-$orderby = " ORDER BY nama_param desc";
-$sql = "SELECT * FROM tbl_param " . $queryCondition;
-$href = 'daftar_param.php';
+$orderby = " ORDER BY p.id_pendaftaran desc";
+$sql = "SELECT p.id_pendaftaran, rm.no_rm, rm.nama, p.tgl_daftar FROM tbl_pendaftaran as p JOIN tbl_rm as rm ON p.no_rm = rm.no_rm WHERE p.status=0" . $queryCondition . " GROUP BY p.id_pendaftaran";
+$href = 'history_pendaftaran.php';
 
 $perPage = 10;
 $page = 1;
@@ -60,7 +62,7 @@ if (!empty($result)) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Data Parameter</h1>
+                    <h1>History Pendaftaran</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -70,27 +72,27 @@ if (!empty($result)) {
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-primary" href="input_param.php">+ Tambah Data</a>
+                <a class="btn btn-primary" href="daftar_pendaftaran.php">+ Tambah Pendaftaran</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form name="frmSearch" method="post" action="daftar_param.php">
+                <form name="frmSearch" method="post" action="history_pendaftaran.php">
                     <div class="search-box">
                         <p>
-                            <input type="text" placeholder="ID Parameter" name="search[id_param]" class="demoInputBox" value="<?php echo $id_param; ?>" />
-                            <input type="text" placeholder="Nama Parameter" name="search[nama_param]" class="demoInputBox" value="<?php echo $nama_param; ?>" /><input type="submit" name="go" class="btnSearch" value="Search"><input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_user.php'">
+                            <input type="text" placeholder="Nama Pendaftaran" name="search[nama_pendaftar]" class="" value="<?php echo $nama_pendaftar; ?>" />
+                            <input type="date" name="search[tanggal]" class="" value="<?php echo $tanggal; ?>" />
+                            <input type="submit" name="go" class="btnSearch" value="Search">
+                            <input type="reset" class="btnSearch" value="Reset" onclick="window.location='history_pendaftaran.php'">
                         </p>
                     </div>
 
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>ID Parameter</th>
-                                <th>Nama Parameter</th>
-                                <th>Satuan</th>
-                                <th>Nilai Rujukan</th>
-                                <th>Metoda</th>
-                                <th>Harga</th>
+                                <th>No REG</th>
+                                <th>No RM Pendaftar</th>
+                                <th>Nama Pendaftar</th>
+                                <th>Tanggal Mendaftar</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -101,15 +103,12 @@ if (!empty($result)) {
                                     if (is_numeric($k)) {
                             ?>
                                         <tr>
-                                            <td><?php echo $result[$k]["id_param"]; ?></td>
-                                            <td><?php echo $result[$k]["nama_param"]; ?></td>
-                                            <td><?php echo $result[$k]["satuan"]; ?></td>
-                                            <td><?php echo $result[$k]["nilai_rujukan"]; ?></td>
-                                            <td><?php echo $result[$k]["metoda"]; ?></td>
-                                            <td><?php echo $result[$k]["harga"]; ?></td>
+                                            <td><?php echo $result[$k]["id_pendaftaran"]; ?></td>
+                                            <td><?php echo $result[$k]["no_rm"]; ?></td>
+                                            <td><?php echo $result[$k]["nama"]; ?></td>
+                                            <td><?php echo $result[$k]["tgl_daftar"]; ?></td>
                                             <td>
-                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_param.php?ID=<?php echo $result[$k]["id_param"]; ?>"></a>
-                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_param.php?ID=<?php echo $result[$k]["id_param"]; ?>"></a>
+                                                <a type="button" class="btn btn-outline-success btn-xs fas fa-check-square" href="input_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Pilih</a>
                                             </td>
                                         </tr>
                                 <?php

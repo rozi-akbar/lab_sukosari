@@ -28,7 +28,7 @@ if (!empty($_POST["search"])) {
     }
   }
 }
-$orderby = " ORDER BY id_desa desc";
+$orderby = " ORDER BY nama_desa desc";
 $sql = "SELECT * FROM tbl_desa " . $queryCondition;
 $href = 'daftar_desa.php';
 

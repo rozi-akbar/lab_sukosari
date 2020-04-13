@@ -11,6 +11,7 @@ if (!empty($_POST["submit"])) {
   }
 }
 require('header.php');
+$result = $db_handle->runQuery("SELECT * FROM tbl_desa");
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -55,12 +56,28 @@ require('header.php');
             <label>Alamat</label>
             <textarea type="text" class="form-control" name="alamat"></textarea>
           </div>
+          <div class="form-group">
+            <label>Desa</label>
+            <select class="form-control select2bs4 col-sm-2" name="id_desa">
+              <?php
+              if (!empty($result)) {
+                foreach ($result as $a => $v) {
+                  if (is_numeric($a)) {
+              ?>
+                    <option value="<?php echo $result[$a]["id_desa"] ?>"><?php echo $result[$a]["nama_desa"]; ?></option>
+              <?php
+                  }
+                }
+              }
+              ?>
+            </select>
+          </div>
         </div>
         <!-- /.card-body -->
 
         <div class="card-footer">
           <button type="submit" class="btn btn-primary" value="Add" name="submit">Submit</button>
-          <a class="btn btn-warning" href="daftar_pasien.php">Cancel</a>
+          <a class="btn btn-warning" href="daftar_pendaftaran.php">Cancel</a>
         </div>
       </form>
     </div>
