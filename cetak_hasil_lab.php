@@ -8,9 +8,15 @@ $result3 = $db_handle->runQuery("SELECT * FROM tbl_pendaftaran tbl1
 JOIN tbl_rm tbl2 ON tbl2.no_rm = tbl1.no_rm
 WHERE tbl1.id_pendaftaran = '" . $id_pendaftaran . "';");
 $result4 = $db_handle->runQuery("SELECT * FROM tbl_hasil tbl1
-JOIN tbl_param tbl2 ON tbl2.id_param = tbl1.id_param
+JOIN tbl_paket_param tbl2 ON tbl2.id_paket=tbl1.id_paket
+JOIN tbl_param tbl3 ON tbl3.id_param=tbl1.id_param
 WHERE tbl1.id_pendaftaran = '" . $id_pendaftaran . "'
-ORDER BY tbl1.id_paket;");
+GROUP BY tbl1.id_param
+ORDER BY tbl2.nama_paket;");
+date_default_timezone_set('Asia/Jakarta');
+$birthDt =  $result3[0]["tgl_lahir"];
+$interval = date_diff(date_create(), date_create($birthDt));
+$umur = $interval->format("%YThn %MBln %dHr");
 ob_start();
 ?>
 <html>
@@ -19,7 +25,7 @@ ob_start();
 </head>
 
 <body>
-    <table width="100%" border="0">
+    <table width="100%" border="0" class="tablenoborder">
         <tr>
             <th>
                 <h4>Pemerintah Kabupaten Bondowoso</h4>
@@ -43,9 +49,12 @@ ob_start();
     </table>
     <hr />
     <br />
-    <table width="100%" style="margin-top:-12; text-align:left" border="0">
+    <table width="100%" style="margin-top:-12; text-align:left" border="0" class="tablenoborder">
         <tr>
-            <td colspan="6" align="center">HASIL PEMERIKSAAN LABORATORIUM</td>
+            <td colspan="6" align="center">
+                <h3>HASIL PEMERIKSAAN LABORATORIUM</h3>
+            </td>
+            <br />
         </tr>
         <tr>
             <td>No.RM</td>
@@ -69,7 +78,7 @@ ob_start();
             <td><?php echo $result3[0]["alamat"]; ?></td>
             <td>Tgl Lahir/Umur</td>
             <td>:</td>
-            <td><?php echo $result3[0]["tgl_lahir"]; ?>/</td>
+            <td><?php echo $birthDt; ?>/<?php echo $umur; ?></td>
         </tr>
         <tr>
             <td>Dokter Penanggungjawab</td>
@@ -81,7 +90,7 @@ ob_start();
         </tr>
     </table>
     <br />
-    <table width="100%" border="1">
+    <table width="100%" border="1" class="tablewithborder">
         <tr>
             <th>Pemeriksaan</th>
             <th>Hasil</th>
@@ -91,8 +100,8 @@ ob_start();
         <?php
         $id_paket = null;
         for ($i = 0; $i < count($result4); $i++) {
-            if ($id_paket != $result4[$i]["id_paket"]) {
-                $id_paket = $result4[$i]["id_paket"]; ?>
+            if ($id_paket != $result4[$i]["nama_paket"]) {
+                $id_paket = $result4[$i]["nama_paket"]; ?>
                 <tr>
                     <td colspan="4"><b><?php echo $id_paket; ?></b></td>
                 </tr>
@@ -107,11 +116,12 @@ ob_start();
         <?php } ?>
     </table>
     <br />
-    <table width="100%">
+    <table width="100%" class="tablenoborder">
         <tr>
-            <td>Waktu Pengambilan Spesimen : <?php echo $result3[0]["tgl_daftar"]; ?>
+            <td class="textsizesmall">
+                Waktu pengambilan spesimen : <?php echo $result3[0]["tgl_daftar"]; ?>
                 <br />
-                Waktu Selesai Hasil : <?php echo $result4[0]["waktu_input"]; ?>
+                Waktu hasil selesai : <?php echo $result4[0]["waktu_input"]; ?>
                 <br />
                 <?php date_default_timezone_set('Asia/Bangkok') ?>
                 Dokumen ini dicetak pada : <?php echo date("Y-m-d H:i:s"); ?>
@@ -136,5 +146,7 @@ ob_end_clean();
 require_once "./mpdf/vendor/autoload.php";
 $mpdf = new \Mpdf\Mpdf();
 $mpdf->AddPage("P", "", "", "", "", "15", "15", "15", "15", "", "", "", "", "", "", "", "", "", "", "", "A4");
+$stylesheet = file_get_contents('cetak_hasil_lab.css');
+$mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
 $mpdf->WriteHTML($content);
 $mpdf->Output();

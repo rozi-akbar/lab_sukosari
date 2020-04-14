@@ -1,0 +1,10 @@
+.tablenoborder {
+    border: 0px;
+}
+.tablewithborder {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.textsizesmall{
+    font-size: 12px;
+}

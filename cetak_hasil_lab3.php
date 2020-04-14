@@ -8,9 +8,15 @@ $result3 = $db_handle->runQuery("SELECT * FROM tbl_pendaftaran tbl1
 JOIN tbl_rm tbl2 ON tbl2.no_rm = tbl1.no_rm
 WHERE tbl1.id_pendaftaran = '" . $id_pendaftaran . "';");
 $result4 = $db_handle->runQuery("SELECT * FROM tbl_hasil tbl1
-JOIN tbl_param tbl2 ON tbl2.id_param = tbl1.id_param
+JOIN tbl_paket_param tbl2 ON tbl2.id_paket=tbl1.id_paket
+JOIN tbl_param tbl3 ON tbl3.id_param=tbl1.id_param
 WHERE tbl1.id_pendaftaran = '" . $id_pendaftaran . "'
-ORDER BY tbl1.id_paket;");
+GROUP BY tbl1.id_param
+ORDER BY tbl2.nama_paket;");
+date_default_timezone_set('Asia/Jakarta');
+$birthDt =  $result3[0]["tgl_lahir"];
+$interval = date_diff(date_create(), date_create($birthDt));
+$umur = $interval->format("%YThn %MBln %dHr");
 ?>
 <html>
 
@@ -44,7 +50,10 @@ ORDER BY tbl1.id_paket;");
     <br />
     <table width="100%" style="margin-top:-12; text-align:left" border="0">
         <tr>
-            <td colspan="6" align="center">HASIL PEMERIKSAAN LABORATORIUM</td>
+            <td colspan="6" align="center">
+                <h3>HASIL PEMERIKSAAN LABORATORIUM</h3>
+            </td>
+            <br />
         </tr>
         <tr>
             <td>No.RM</td>
@@ -68,7 +77,7 @@ ORDER BY tbl1.id_paket;");
             <td><?php echo $result3[0]["alamat"]; ?></td>
             <td>Tgl Lahir/Umur</td>
             <td>:</td>
-            <td><?php echo $result3[0]["tgl_lahir"]; ?>/</td>
+            <td><?php echo $birthDt; ?>/<?php echo $umur; ?></td>
         </tr>
         <tr>
             <td>Dokter Penanggungjawab</td>
@@ -90,8 +99,8 @@ ORDER BY tbl1.id_paket;");
         <?php
         $id_paket = null;
         for ($i = 0; $i < count($result4); $i++) {
-            if ($id_paket != $result4[$i]["id_paket"]) {
-                $id_paket = $result4[$i]["id_paket"]; ?>
+            if ($id_paket != $result4[$i]["nama_paket"]) {
+                $id_paket = $result4[$i]["nama_paket"]; ?>
                 <tr>
                     <td colspan="4"><b><?php echo $id_paket; ?></b></td>
                 </tr>
