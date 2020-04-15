@@ -1,5 +1,11 @@
 <?php
 require('header.php');
+require_once("koneksi.php");
+$db_handle = new Koneksi();
+$result = $db_handle->runQuery("SELECT tbl3.nama_desa FROM tbl_pendaftaran tbl1
+JOIN tbl_rm tbl2 ON tbl2.no_rm = tbl1.no_rm
+JOIN tbl_desa tbl3 ON tbl3.id_desa = tbl2.id_desa
+GROUP BY tbl1.id_pendaftaran");
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -28,7 +34,7 @@ require('header.php');
       </div>
       <div class="card-body">
         <div class="chart">
-          <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+          <canvas id="barChart" style="min-height: 250px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
         </div>
       </div>
       <!-- /.card-body -->
@@ -94,19 +100,27 @@ require('header.php');
 <script>
   $(function() {
     var areaChartData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: [
+        <?php if (!empty($result)) {
+          foreach ($result as $k => $v) {
+            if (is_numeric($k)) {
+              echo '"'.$result[$k]["nama_desa"].'",';
+            }
+          }
+        }
+        ?>
+      ],
       datasets: [{
-          label: 'Digital Goods',
-          backgroundColor: 'rgba(60,141,188,0.9)',
-          borderColor: 'rgba(60,141,188,0.8)',
-          pointRadius: false,
-          pointColor: '#3b8bba',
-          pointStrokeColor: 'rgba(60,141,188,1)',
-          pointHighlightFill: '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data: [10, 20, 30, 40, 50, 60, 70]
-        },
-      ]
+        label: 'Digital Goods',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [10, 20, 30, 40, 50, 60, 70]
+      }, ]
     }
 
     //-------------

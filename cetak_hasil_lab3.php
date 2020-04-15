@@ -12,7 +12,7 @@ JOIN tbl_paket_param tbl2 ON tbl2.id_paket=tbl1.id_paket
 JOIN tbl_param tbl3 ON tbl3.id_param=tbl1.id_param
 WHERE tbl1.id_pendaftaran = '" . $id_pendaftaran . "'
 GROUP BY tbl1.id_param
-ORDER BY tbl2.nama_paket;");
+ORDER BY tbl2.nama_paket, tbl2.id_param;");
 date_default_timezone_set('Asia/Jakarta');
 $birthDt =  $result3[0]["tgl_lahir"];
 $interval = date_diff(date_create(), date_create($birthDt));

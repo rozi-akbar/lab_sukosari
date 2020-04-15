@@ -36,7 +36,7 @@ if (!empty($_POST["search"])) {
     }
 }
 $orderby = " ORDER BY p.id_pendaftaran desc";
-$sql = "SELECT p.id_pendaftaran, rm.no_rm, rm.nama, p.tgl_daftar FROM tbl_pendaftaran as p JOIN tbl_rm as rm ON p.no_rm = rm.no_rm WHERE p.status=0" . $queryCondition . " GROUP BY p.id_pendaftaran";
+$sql = "SELECT p.id_pendaftaran, rm.no_rm, rm.nama, p.tgl_daftar FROM tbl_pendaftaran as p JOIN tbl_rm as rm ON p.no_rm = rm.no_rm" . $queryCondition . " GROUP BY p.id_pendaftaran";
 $href = 'history_pendaftaran.php';
 
 $perPage = 10;

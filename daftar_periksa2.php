@@ -107,7 +107,7 @@ if (!empty($result)) {
                       <td><?php echo $result[$k]["nama"]; ?></td>
                       <td><?php echo $result[$k]["waktu_input"]; ?></td>
                       <td>
-                        <a type="button" class="btn btn-outline-primary btn-xs far fa-file-pdf" href="cetak_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Cetak</a>
+                        <a type="button" class="btn btn-outline-primary btn-xs far fa-file-pdf" href="cetak_hasil_lab3.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Cetak</a>
                       </td>
                     </tr>
                 <?php
