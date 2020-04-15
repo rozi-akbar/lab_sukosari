@@ -15,11 +15,19 @@
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Select2 -->
 <script src="plugins/select2/js/select2.full.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- FLOT CHARTS -->
+<script src="plugins/flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="plugins/flot-old/jquery.flot.resize.min.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="plugins/flot-old/jquery.flot.pie.min.js"></script>
 <!-- date-range-picker -->
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- AdminLTE App -->
@@ -28,24 +36,12 @@
 <script src="dist/js/demo.js"></script>
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.pt-BR.js"></script>
-<script type="text/javascript"
-     src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-    </script> 
-    <script type="text/javascript"
-     src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
-    </script>
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-    </script>
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-    </script>
-    <script type="text/javascript">
-      $('#datetimepicker').datetimepicker({
-        format: 'dd/MM/yyyy hh:mm:ss',
-        language: 'pt-BR'
-      });
-    </script>
+<script type="text/javascript">
+  $('#datetimepicker').datetimepicker({
+    format: 'dd/MM/yyyy hh:mm:ss',
+    language: 'pt-BR'
+  });
+</script>
 <script type="text/javascript">
   $(function() {
     $('#datetimepicker1').datetimepicker({
@@ -55,6 +51,62 @@
 </script>
 <script>
   $(function() {
+    /*
+     * BAR CHART
+     * ---------
+     */
+
+    var bar_data = {
+      data: [
+        [1, 10],
+        [2, 8],
+        [3, 4],
+        [4, 13],
+        [5, 17],
+        [6, 9]
+      ],
+      bars: {
+        show: true
+      }
+    }
+    $.plot('#bar-chart', [bar_data], {
+      grid: {
+        borderWidth: 1,
+        borderColor: '#f3f3f3',
+        tickColor: '#f3f3f3'
+      },
+      series: {
+        bars: {
+          show: true,
+          barWidth: 0.5,
+          align: 'center',
+        },
+      },
+      colors: ['#3c8dbc'],
+      xaxis: {
+        ticks: [
+          [1, 'January'],
+          [2, 'February'],
+          [3, 'March'],
+          [4, 'April'],
+          [5, 'May'],
+          [6, 'June']
+        ]
+      }
+    })
+    /* END BAR CHART */
+
+    /*
+     * Custom Label formatter
+     * ----------------------
+     */
+    function labelFormatter(label, series) {
+      return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">' +
+        label +
+        '<br>' +
+        Math.round(series.percent) + '%</div>'
+    }
+
     //Initialize Select2 Elements
     $('.select2').select2()
 

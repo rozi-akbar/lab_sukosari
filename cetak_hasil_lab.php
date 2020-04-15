@@ -42,12 +42,11 @@ ob_start();
             </th>
         </tr>
         <tr>
-            <th>
+            <th class="tablebottomborder">
                 <h4>Jl. Raya Kawah Ijen No. 53 Sukosari - Bondowoso</h4>
             </th>
         </tr>
     </table>
-    <hr />
     <br />
     <table width="100%" style="margin-top:-12; text-align:left" border="0" class="tablenoborder">
         <tr>
@@ -107,7 +106,7 @@ ob_start();
                 </tr>
             <?php }
             ?>
-            <tr>
+            <tr class="tablenoborder">
                 <td><?php echo $result4[$i]["nama_param"]; ?></td>
                 <td align="center"><?php echo $result4[$i]["hasil"]; ?></td>
                 <td align="center"><?php echo $result4[$i]["nilai_rujukan"]; ?></td>
