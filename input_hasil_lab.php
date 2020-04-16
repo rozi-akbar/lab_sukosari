@@ -72,7 +72,7 @@ $result = $db_handle->runQuery($query);
                         <tr>
                             <td><label>Tanggal</label></td>
                             <td><label> : </label></td>
-                            <td><input type="datetime-local" class="form-control" name="tgl_hasil"></td>
+                            <td><input type="text" id="datepicker" name="tgl_daftar" value=""></td>
                         </tr>
                     </table>
                     <br/>
