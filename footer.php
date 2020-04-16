@@ -34,22 +34,31 @@
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<script type="text/javascript" src="dist/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="dist/js/bootstrap-datetimepicker.pt-BR.js"></script>
-<script type="text/javascript">
-  $('#datetimepicker').datetimepicker({
-    format: 'dd/MM/yyyy hh:mm:ss',
-    language: 'pt-BR'
-  });
-</script>
-<script type="text/javascript">
-  $(function() {
-    $('#datetimepicker1').datetimepicker({
-      language: 'pt-BR'
+<!-- Datetime Picker -->
+<script type="text/javascript" src="plugins/datetimepicker/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="plugins/datetimepicker/jquery-ui.min.js"></script>
+<script type="text/javascript" src="plugins/datetimepicker/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="plugins/datetimepicker/jquery-ui-sliderAccess.js"></script>
+<script>
+  // http://cariprogram.blogspot.com
+  // nuramijaya@gmail.com
+
+  $(document).ready(function() {
+    //$("#datepicker").datepicker();
+    //$("#datepicker").datepicker(
+    //{
+    //   dateFormat: 'dd/mm/yy',
+    //   changeMonth: true,
+    //   changeYear: true
+    //defaultDate: '20/03/2010'
+    // });
+
+    $('#datepicker').datetimepicker({
+      dateFormat: 'yy-mm-dd',
+      timeFormat: 'HH:mm:ss',
     });
   });
-</script>
-<script>
+</script><script>
   $(function() {
     /*
      * BAR CHART

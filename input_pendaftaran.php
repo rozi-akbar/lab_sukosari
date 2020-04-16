@@ -62,6 +62,10 @@ $result6 = $db_handle->runQuery("SELECT * FROM tbl_permintaan;");
                         <input type="text" class="form-control" name="no_ktp" value="<?php echo $result[0]["no_ktp"]; ?>">
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputPassword1">Tanggal</label>
+                        <input type="text" id="datepicker" name="tgl_daftar" class="form-control col-sm-2" value="">
+                    </div>
+                    <div class="form-group">
                         <label>Diagnosa</label>
                         <select class="form-control select2bs4" name="id_penyakit">
                             <?php
@@ -76,10 +80,6 @@ $result6 = $db_handle->runQuery("SELECT * FROM tbl_permintaan;");
                             }
                             ?>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Tanggal</label>
-                        <input type="datetime-local" class="form-control col-sm-2" name="tgl_daftar">
                     </div>
                     <div class="form-group">
                         <label>Atas Permintaan</label>
@@ -106,7 +106,7 @@ $result6 = $db_handle->runQuery("SELECT * FROM tbl_permintaan;");
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body table-responsive p-0" style="height: 300px;">
-                                        <table class="table table-head-fixed">
+                                        <table class="table">
                                             <thead>
                                                 <tr>
                                                     <th>Pilih</th>

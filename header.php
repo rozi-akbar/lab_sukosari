@@ -12,6 +12,11 @@ session_start();
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
+  <!-- Datetime Picker -->
+  <link rel="stylesheet" media="all" type="text/css" href="plugins/datetimepicker/jquery-ui.css" />
+  <link rel="stylesheet" media="all" type="text/css" href="plugins/datetimepicker/jquery-ui-timepicker-addon.css" />
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- overlayScrollbars -->
