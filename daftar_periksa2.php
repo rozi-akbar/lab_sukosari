@@ -5,14 +5,14 @@ require_once("koneksi.php");
 $db_handle = new Koneksi();
 
 $no_rm = "";
-$diagnosa = "";
+$nama = "";
 
 $queryCondition = "";
 if (!empty($_POST["search"])) {
   foreach ($_POST["search"] as $k => $v) {
     if (!empty($v)) {
 
-      $queryCases = array("hl.no_rm", "rm.no_ktp");
+      $queryCases = array("tbl2.no_rm", "tbl3.nama");
       if (in_array($k, $queryCases)) {
         if (!empty($queryCondition)) {
           $queryCondition .= " AND ";
@@ -21,13 +21,13 @@ if (!empty($_POST["search"])) {
         }
       }
       switch ($k) {
-        case "hl.no_rm":
+        case "tbl2.no_rm":
           $no_rm = $v;
-          $queryCondition .= "hl.no_rm LIKE '" . $v . "%'";
+          $queryCondition .= "tbl2.no_rm LIKE '" . $v . "%'";
           break;
-        case "rm.no_ktp":
-          $diagnosa = $v;
-          $queryCondition .= "rm.no_ktp LIKE '" . $v . "%'";
+        case "tbl3.nama":
+          $nama = $v;
+          $queryCondition .= "tbl3.nama LIKE '" . $v . "%'";
           break;
       }
     }
@@ -79,8 +79,8 @@ if (!empty($result)) {
         <form name="frmSearch" method="post" action="daftar_periksa2.php">
           <div class="search-box">
             <p>
-              <input type="text" placeholder="No rekam medis" name="search[no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />
-              <input type="text" placeholder="No KTP" name="search[diagnosa]" class="demoInputBox" value="<?php echo $diagnosa; ?>" />
+              <input type="text" placeholder="No rekam medis" name="search[tbl2.no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />
+              <input type="text" placeholder="Nama" name="search[tbl3.nama]" class="demoInputBox" value="<?php echo $nama; ?>" />
               <input type="submit" name="go" class="btnSearch" value="Search">
               <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_periksa2.php'">
             </p>

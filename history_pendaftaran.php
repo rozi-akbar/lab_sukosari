@@ -79,7 +79,7 @@ if (!empty($result)) {
                 <form name="frmSearch" method="post" action="history_pendaftaran.php">
                     <div class="search-box">
                         <p>
-                            <input type="text" placeholder="Nama Pendaftaran" name="search[nama_pendaftar]" class="" value="<?php echo $nama_pendaftar; ?>" />
+                            <input type="text" placeholder="Nama Pendaftar" name="search[nama_pendaftar]" class="" value="<?php echo $nama_pendaftar; ?>" />
                             <input type="date" name="search[tanggal]" class="" value="<?php echo $tanggal; ?>" />
                             <input type="submit" name="go" class="btnSearch" value="Search">
                             <input type="reset" class="btnSearch" value="Reset" onclick="window.location='history_pendaftaran.php'">

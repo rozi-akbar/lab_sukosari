@@ -64,7 +64,7 @@ ob_start();
             <td><?php echo $result3[0]["id_pendaftaran"]; ?></td>
         </tr>
         <tr>
-            <td>Tgl Sampling</td>
+            <td>Tgl & Waktu Sampling</td>
             <td>:</td>
             <td><?php echo $result3[0]["tgl_daftar"]; ?></td>
             <td>Nama</td>
