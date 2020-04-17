@@ -109,7 +109,7 @@ if (!empty($result)) {
                                             <td><?php echo $result[$k]["tgl_daftar"]; ?></td>
                                             <td>
                                                 <a type="button" class="btn btn-outline-success btn-xs fas fa-check-square" href="input_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Pilih</a>
-                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-check-square" href="delete_history_pendaftaran.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Hapus</a>
+                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_history_pendaftaran.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Hapus</a>
                                             </td>
                                         </tr>
                                 <?php
