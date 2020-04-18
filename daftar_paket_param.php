@@ -33,7 +33,7 @@ if (!empty($_POST["search"])) {
         }
     }
 }
-$orderby = " ORDER BY nama_paket desc";
+$orderby = " ORDER BY id_paket asc";
 $sql = "SELECT id_paket, nama_paket, harga, lab_terkait, COUNT(id_param) FROM tbl_paket_param GROUP BY id_paket" . $queryCondition;
 $href = 'daftar_paket_param.php';
 
@@ -102,7 +102,6 @@ if (!empty($result)) {
                                             <td><?php echo $result[$k]["harga"]; ?></td>
                                             <td><?php echo $result[$k]["COUNT(id_param)"]; ?> Item</td>
                                             <td>
-                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_param.php?ID=<?php echo $result[$k]["id_paket"]; ?>"></a>
                                                 <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_paket_param.php?ID=<?php echo $result[$k]["id_paket"]; ?>"></a>
                                             </td>
                                         </tr>

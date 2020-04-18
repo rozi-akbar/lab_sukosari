@@ -111,7 +111,7 @@ GROUP BY tbl1.id_pendaftaran");
         ?>
       ],
       datasets: [{
-        label: 'Digital Goods',
+        label: 'Desa',
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         pointRadius: false,

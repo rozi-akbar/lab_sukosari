@@ -26,6 +26,9 @@ $umur = $interval->format("%YThn %MBln %dHr");
 <body>
     <table width="100%" border="0">
         <tr>
+            <th rowspan="4">
+                <img src="dist/img/Lambang_Bondowoso.png" width="120px" height="144px">
+            </th>
             <th>
                 <h4>Pemerintah Kabupaten Bondowoso</h4>
             </th>

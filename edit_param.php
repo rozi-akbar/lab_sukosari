@@ -23,7 +23,7 @@ require('header.php');
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Data User</h1>
+          <h1>Data Parameter</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -33,7 +33,7 @@ require('header.php');
   <section class="content">
     <div class="card card-primary">
       <div class="card-header">
-        <h3 class="card-title">User</h3>
+        <h3 class="card-title">Edit Parameter</h3>
       </div>
       <!-- /.card-header -->
       <!-- form start -->

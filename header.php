@@ -181,12 +181,6 @@ session_start();
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="input_petugas.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Petugas</p>
-                  </a>
-                </li>
-                <li class="nav-item">
                   <a href="daftar_user.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data User</p>

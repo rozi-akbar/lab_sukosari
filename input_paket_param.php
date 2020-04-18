@@ -19,6 +19,8 @@ require('header.php');
 $uniqueID = uniqid();
 $query = "SELECT * FROM tbl_param;";
 $result = $db_handle->runQuery($query);
+$queries="SELECT max(id_paket)+1 as id FROM tbl_paket_param;";
+$resulties = $db_handle->runQuery($queries);
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -45,7 +47,7 @@ $result = $db_handle->runQuery($query);
                 <div class="card-body">
                     <div class="form-group">
                         <label>Nama Paket</label>
-                        <input type="hidden" class="form-control" name="id_paket" value="<?php echo $uniqueID; ?>">
+                        <input type="hidden" class="form-control" name="id_paket" value="<?php echo $resulties[0]["id"]; ?>">
                         <input type="text" class="form-control" name="nama_paket">
                     </div>
                     <div class="form-group">

@@ -2,8 +2,8 @@
 require_once("koneksi.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
-  $query = "INSERT INTO tbl_param(id_param, nama_param, satuan, nilai_rujukan, metoda, harga) VALUES('" . $_POST["id_param"] . "',
-  '" . $_POST["nama_param"] . "','" . $_POST["satuan"] . "','" . $_POST["nilai_rujukan"] . "','" . $_POST["metoda"] . "','" . $_POST["harga"] . "')";
+  $query = "INSERT INTO tbl_param(nama_param, satuan, nilai_rujukan, metoda, harga) VALUES('" . $_POST["nama_param"] . "',
+  '" . $_POST["satuan"] . "','" . $_POST["nilai_rujukan"] . "','" . $_POST["metoda"] . "','" . $_POST["harga"] . "')";
   $result = $db_handle->executeQuery($query);
   if (!$result) {
     $message = "Problem in Adding to database. Please Retry.";
@@ -12,7 +12,6 @@ if (!empty($_POST["submit"])) {
   }
 }
 require('header.php');
-$uniqueID=uniqid();
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -39,7 +38,6 @@ $uniqueID=uniqid();
         <div class="card-body">
           <div class="form-group">
             <label>Nama Parameter</label>
-            <input type="hidden" class="form-control" name="id_param" value="<?php echo $uniqueID;?>">
             <input type="text" class="form-control" name="nama_param">
           </div>
           <div class="form-group">

@@ -33,7 +33,7 @@ if (!empty($_POST["search"])) {
         }
     }
 }
-$orderby = " ORDER BY nama_param desc";
+$orderby = " ORDER BY id_param asc";
 $sql = "SELECT * FROM tbl_param " . $queryCondition;
 $href = 'daftar_param.php';
 

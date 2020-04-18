@@ -1,9 +1,9 @@
 <?php
 require_once("koneksi.php");
+session_start();
 $db_handle = new Koneksi();
 $id_pendaftaran = $_GET["id"];
 $result = $db_handle->runQuery("SELECT * FROM tbl_penanggungjawab_lab");
-$result2 = $db_handle->runQuery("SELECT * FROM tbl_petugas");
 $result3 = $db_handle->runQuery("SELECT * FROM tbl_pendaftaran tbl1
 JOIN tbl_rm tbl2 ON tbl2.no_rm = tbl1.no_rm
 WHERE tbl1.id_pendaftaran = '" . $id_pendaftaran . "';");
@@ -12,7 +12,7 @@ JOIN tbl_paket_param tbl2 ON tbl2.id_paket=tbl1.id_paket
 JOIN tbl_param tbl3 ON tbl3.id_param=tbl1.id_param
 WHERE tbl1.id_pendaftaran = '" . $id_pendaftaran . "'
 GROUP BY tbl1.id_param
-ORDER BY tbl2.nama_paket, tbl2.id_param;");
+ORDER BY tbl2.id_paket, tbl2.id_param;");
 date_default_timezone_set('Asia/Jakarta');
 $birthDt =  $result3[0]["tgl_lahir"];
 $interval = date_diff(date_create(), date_create($birthDt));
@@ -27,8 +27,14 @@ ob_start();
 <body>
     <table width="100%" border="0" class="tablenoborder">
         <tr>
+            <th rowspan="4">
+                <img src="dist/img/Lambang_Bondowoso2.png" width="100px" height="120px">
+            </th>
             <th>
                 <h4>Pemerintah Kabupaten Bondowoso</h4>
+            </th>
+            <th rowspan="4">
+                <img src="dist/img/blank.png" width="100px" height="120px">
             </th>
         </tr>
         <tr>
@@ -42,9 +48,12 @@ ob_start();
             </th>
         </tr>
         <tr>
-            <th class="tablebottomborder">
+            <th>
                 <h4>Jl. Raya Kawah Ijen No. 53 Sukosari - Bondowoso</h4>
             </th>
+        </tr>
+        <tr>
+            <th colspan="3"><hr/></th>
         </tr>
     </table>
     <br />
@@ -131,7 +140,7 @@ ob_start();
         <tr>
             <td></td>
             <td></td>
-            <td align="center"><u><?php echo $result2[0]["nama"]; ?></u><br />
+            <td align="center"><u><?php echo $_SESSION['nama']; ?></u><br />
                 Pemeriksa Hasil
             </td>
         </tr>

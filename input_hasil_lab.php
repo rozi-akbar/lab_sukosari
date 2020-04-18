@@ -9,10 +9,10 @@ if (!empty($_POST["submit"])) {
     for ($x = 0; $x < $jumlah_data; $x++) {
         $query = "INSERT INTO tbl_hasil(id_pendaftaran, waktu_input, id_paket, id_param, hasil) 
         VALUES('" . $_POST["id_pendaftaran"] . "','" . $_POST["tgl_hasil"] . "','$id_paket[$x]','$id_param[$x]','$hasil[$x]');";
-        $result3 = $db_handle->executeQuery($query);    
+        $result3 = $db_handle->executeQuery($query);
     }
-    $query2="UPDATE tbl_pendaftaran SET status=1 WHERE id_pendaftaran='".$_POST["id_pendaftaran"]."'";
-    $result2= $db_handle->executeQuery($query2);
+    $query2 = "UPDATE tbl_pendaftaran SET status=1 WHERE id_pendaftaran='" . $_POST["id_pendaftaran"] . "'";
+    $result2 = $db_handle->executeQuery($query2);
     if (!$result3) {
         $message = "Problem in Adding to database. Please Retry.";
         echo $message;
@@ -22,12 +22,12 @@ if (!empty($_POST["submit"])) {
 }
 require('header.php');
 $uniqueID = uniqid();
-$query = "SELECT * 
-FROM tbl_pendaftaran t1 
+$query = "SELECT * FROM tbl_pendaftaran t1 
 JOIN tbl_rm t2 ON t2.no_rm=t1.no_rm 
 JOIN tbl_paket_param t3 ON t3.id_paket=t1.id_paket 
 JOIN tbl_param t4 ON t4.id_param=t3.id_param 
-WHERE t1.id_pendaftaran='" . $_GET["id"] . "'";
+WHERE t1.id_pendaftaran='" . $_GET["id"] . "'
+ORDER BY t1.id_paket, t4.id_param";
 $result = $db_handle->runQuery($query);
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -65,7 +65,7 @@ $result = $db_handle->runQuery($query);
                             <td><label><?php echo $result[0]["no_rm"]; ?></label></td>
                         </tr>
                         <tr>
-                            <td><label>No RM</label></td>
+                            <td><label>Nama</label></td>
                             <td><label> : </label></td>
                             <td><label><?php echo $result[0]["nama"]; ?></label></td>
                         </tr>
@@ -75,52 +75,43 @@ $result = $db_handle->runQuery($query);
                             <td><input type="text" id="datepicker" name="tgl_hasil" value=""></td>
                         </tr>
                     </table>
-                    <br/>
+                    <br />
                     <input type="hidden" class="form-control" name="id_pendaftaran" value="<?php echo $result[0]["id_pendaftaran"]; ?>">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Isi Data</h3>
-                                    </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body table-responsive p-0" style="height: 300px;">
-                                        <table class="table table-head-fixed">
-                                            <thead>
-                                                <tr>
-                                                    <th>Pemeriksaan</th>
-                                                    <th>Hasil</th>
-                                                    <th>Satuan</th>
-                                                    <th>Normal</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if (!empty($result)) {
-                                                    foreach ($result as $k => $v2) {
-                                                        if (is_numeric($k)) {
-                                                ?>
-                                                            <tr>
-                                                                <input type="checkbox" name="id_param[]" value="<?php echo $result[$k]["id_param"]; ?>" checked hidden>
-                                                                <input type="checkbox" name="id_paket[]" value="<?php echo $result[$k]["id_paket"]; ?>" checked hidden>
-                                                                <td><?php echo $result[$k]["nama_param"]; ?></td>
-                                                                <td><input type="text" name="hasil[]"></td>
-                                                                <td><?php echo $result[$k]["satuan"]; ?></td>
-                                                                <td><?php echo $result[$k]["nilai_rujukan"]; ?></td>
-                                                            </tr>
-                                                <?php
-                                                        }
-                                                    }
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
-                            </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Isi Hasil</h3>
                         </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <tr align="center">
+                                    <th>Pemeriksaan</th>
+                                    <th>Hasil</th>
+                                    <th>Nilai Rujukan</th>
+                                    <th>Satuan</th>
+                                </tr>
+                                <?php
+                                $id_paket = null;
+                                for ($i = 0; $i < count($result); $i++) {
+                                    if ($id_paket != $result[$i]["nama_paket"]) {
+                                        $id_paket = $result[$i]["nama_paket"]; ?>
+                                        <tr>
+                                            <td colspan="4"><b><?php echo $id_paket; ?></b></td>
+                                        </tr>
+                                    <?php }
+                                    ?>
+                                    <tr>
+                                        <input type="checkbox" name="id_param[]" value="<?php echo $result[$i]["id_param"]; ?>" checked hidden>
+                                        <input type="checkbox" name="id_paket[]" value="<?php echo $result[$i]["id_paket"]; ?>" checked hidden>
+                                        <td><?php echo $result[$i]["nama_param"]; ?></td>
+                                        <td align="center"><input type="text" name="hasil[]"></td>
+                                        <td align="center"><?php echo $result[$i]["nilai_rujukan"]; ?></td>
+                                        <td align="center"><?php echo $result[$i]["satuan"]; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
                 </div>
                 <!-- /.card-body -->
