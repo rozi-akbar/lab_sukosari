@@ -9,31 +9,31 @@
 			
 			if(($_POST["page"]-3)>0) {
 				if($_POST["page"] == 1)
-					$output = $output . '<span id=1 class="current-page">1</span>';
+					$output = $output . '<li class="page-item active"><span id=1 class="current-page page-link">1</span></li>';
 				else				
-					$output = $output . '<input type="submit" name="page" class="perpage-link" value="1" />';
+					$output = $output . '<li class="page-item"><input type="submit" name="page" class="perpage-link page-link" value="1"/></li>';
 			}
 			if(($_POST["page"]-3)>1) {
-					$output = $output . '...';
+				$output = $output . '<li class="page-item"><span class="page-link">...</span></li>';
 			}
 			
 			for($i=($_POST["page"]-2); $i<=($_POST["page"]+2); $i++)	{
 				if($i<1) continue;
 				if($i>$pages) break;
 				if($_POST["page"] == $i)
-					$output = $output . '<span id='.$i.' class="current-page" >'.$i.'</span>';
+					$output = $output . '<li class="page-item active"><span id='.$i.' class="current-page page-link">'.$i.'</span></li>';
 				else				
-					$output = $output . '<input type="submit" name="page" class="perpage-link" value="' . $i . '" />';
+					$output = $output . '<li class="page-item"><input type="submit" name="page" class="perpage-link page-link" value="'.$i.'"/></li>';
 			}
 			
 			if(($pages-($_POST["page"]+2))>1) {
-				$output = $output . '...';
+				$output = $output . '<li class="page-item"><span class="page-link">...</span></li>';
 			}
 			if(($pages-($_POST["page"]+2))>0) {
 				if($_POST["page"] == $pages)
-					$output = $output . '<span id=' . ($pages) .' class="current-page">' . ($pages) .'</span>';
+					$output = $output . '<li class="page-item active"><span id='.($pages).' class="current-page page-link">'.($pages).'</span></li>';
 				else				
-					$output = $output . '<input type="submit" name="page" class="perpage-link" value="' . $pages . '" />';
+					$output = $output . '<li class="page-item"><input type="submit" name="page" class="perpage-link page-link" value="'.$pages.'"/></li>';
 			}
 			
 		}
@@ -47,4 +47,3 @@
 		$perpage = perpage($count, $per_page,$href);
 		return $perpage;
 	}
-?>

@@ -36,7 +36,7 @@ if (!empty($_POST["search"])) {
 $orderby = " ORDER BY tbl1.id_pendaftaran desc";
 $sql = "SELECT * FROM tbl_hasil tbl1
 JOIN tbl_pendaftaran tbl2 ON tbl2.id_pendaftaran=tbl1.id_pendaftaran
-JOIN tbl_rm tbl3 ON tbl3.no_rm=tbl2.no_rm" . $queryCondition." GROUP BY tbl1.id_pendaftaran";
+JOIN tbl_rm tbl3 ON tbl3.no_rm=tbl2.no_rm" . $queryCondition . " GROUP BY tbl1.id_pendaftaran";
 $href = 'daftar_periksa2.php';
 
 $perPage = 10;
@@ -118,7 +118,11 @@ if (!empty($result)) {
               if (isset($result["perpage"])) {
                 ?>
                 <tr>
-                  <td colspan="6" align=right> <?php echo $result["perpage"]; ?></td>
+                  <td colspan="6" align=right>
+                    <ul class="pagination pagination-sm m-0 float-right">
+                      <?php echo $result["perpage"]; ?>
+                    </ul>
+                  </td>
                 </tr>
               <?php } ?>
             </tbody>

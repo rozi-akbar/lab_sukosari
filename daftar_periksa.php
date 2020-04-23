@@ -117,7 +117,11 @@ if (!empty($result)) {
               if (isset($result["perpage"])) {
                 ?>
                 <tr>
-                  <td colspan="6" align=right> <?php echo $result["perpage"]; ?></td>
+                  <td colspan="6" align=right>
+                    <ul class="pagination pagination-sm m-0 float-right">
+                      <?php echo $result["perpage"]; ?>
+                    </ul>
+                  </td>
                 </tr>
               <?php } ?>
             </tbody>
