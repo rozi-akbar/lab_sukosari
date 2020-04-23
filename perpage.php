@@ -41,7 +41,7 @@
 	}
 	
 	function showperpage($sql, $per_page = 10, $href) {
-	    require_once("koneksi.php");
+	    require_once("database.php");
 	    $db_handle = new Koneksi();
 	    $count   = $db_handle->numRows($sql);
 		$perpage = perpage($count, $per_page,$href);

@@ -1,7 +1,7 @@
 <?php
 require('header.php');
 require_once("perpage.php");
-require_once("koneksi.php");
+require_once("database.php");
 $db_handle = new Koneksi();
 
 $nama = "";
@@ -118,10 +118,7 @@ if (!empty($result)) {
                             } else {
                                 ?>
                                 <tr>
-                                    <td colspan="5" align="center"><?php echo "Hasil pencarian tidak ada, pilih tambah data pasien terlebih dahulu"; ?></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" align="center"><a class="btn btn-primary" href="input_pasien.php">+ Tambah Data Pasien</a></td>
+                                    <td colspan="6" align="center"><?php echo "Hasil pencarian tidak ada, pilih tambah data pasien terlebih dahulu"; ?></td>
                                 </tr>
                             <?php
 
@@ -129,7 +126,7 @@ if (!empty($result)) {
                             if (isset($result["perpage"])) {
                             ?>
                                 <tr>
-                                    <td colspan="6" align=right> <?php echo $result["perpage"]; ?></td>
+                                    <td colspan="6" align=right><?php echo $result["perpage"]; ?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>

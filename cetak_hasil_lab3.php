@@ -1,5 +1,5 @@
 <?php
-require_once("koneksi.php");
+require_once("database.php");
 $db_handle = new Koneksi();
 $id_pendaftaran = $_GET["id"];
 $result = $db_handle->runQuery("SELECT * FROM tbl_penanggungjawab_lab");
@@ -12,7 +12,7 @@ JOIN tbl_paket_param tbl2 ON tbl2.id_paket=tbl1.id_paket
 JOIN tbl_param tbl3 ON tbl3.id_param=tbl1.id_param
 WHERE tbl1.id_pendaftaran = '" . $id_pendaftaran . "'
 GROUP BY tbl1.id_param
-ORDER BY tbl2.nama_paket, tbl2.id_param;");
+ORDER BY tbl1.id_param");
 date_default_timezone_set('Asia/Jakarta');
 $birthDt =  $result3[0]["tgl_lahir"];
 $interval = date_diff(date_create(), date_create($birthDt));
@@ -133,7 +133,7 @@ $umur = $interval->format("%YThn %MBln %dHr");
         <tr>
             <td></td>
             <td></td>
-            <td align="center"><u><?php echo $result2[0]["nama"]; ?></u><br />
+            <td align="center"><u><?php echo $_SESSION['nama']; ?></u><br />
                 Pemeriksa Hasil
             </td>
         </tr>

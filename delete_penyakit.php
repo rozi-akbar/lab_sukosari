@@ -1,5 +1,5 @@
 <?php
-require_once("koneksi.php");
+require_once("database.php");
 $db_handle = new Koneksi();
 if(!empty($_GET["id_penyakit"])) {
     $query = "DELETE FROM tbl_penyakit WHERE id_penyakit='" . $_GET["id_penyakit"] . "' ";

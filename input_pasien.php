@@ -1,13 +1,13 @@
 <?php
-require_once("koneksi.php");
+require_once("database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
-  $query = "INSERT INTO tbl_rm(no_rm, no_ktp, nama, tgl_lahir, alamat) VALUES('" . $_POST["no_rm"] . "','" . $_POST["no_ktp"] . "','" . $_POST["nama"] . "','" . $_POST["tgl_lahir"] . "','" . $_POST["alamat"] . "')";
+  $query = "INSERT INTO tbl_rm(no_rm, no_ktp, nama, tgl_lahir, alamat, id_desa) VALUES('" . $_POST["no_rm"] . "','" . $_POST["no_ktp"] . "','" . $_POST["nama"] . "','" . $_POST["tgl_lahir"] . "','" . $_POST["alamat"] . "','" . $_POST["id_desa"] . "')";
   $result = $db_handle->executeQuery($query);
   if (!$result) {
     $message = "Problem in Adding to database. Please Retry.";
   } else {
-    header("Location:daftar_pasien.php");
+    header("Location:daftar_pendaftaran.php");
   }
 }
 require('header.php');

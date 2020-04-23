@@ -1,5 +1,5 @@
 <?php
-require_once("koneksi.php");
+require_once("database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
   $query = "UPDATE tbl_penyakit SET nama_penyakit='" . $_POST["nama_penyakit"] . "' WHERE id_penyakit='" . $_POST["id_penyakit"] . "' ";

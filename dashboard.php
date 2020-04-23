@@ -1,6 +1,6 @@
 <?php
 require('header.php');
-require_once("koneksi.php");
+require_once("database.php");
 $db_handle = new Koneksi();
 $result = $db_handle->runQuery("SELECT tbl3.nama_desa FROM tbl_pendaftaran tbl1
 JOIN tbl_rm tbl2 ON tbl2.no_rm = tbl1.no_rm
@@ -24,7 +24,7 @@ GROUP BY tbl1.id_pendaftaran");
   <section class="content">
     <div class="card card-success">
       <div class="card-header">
-        <h3 class="card-title">Bar Chart</h3>
+        <h3 class="card-title">Data Persebaran Penyakit</h3>
 
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -101,13 +101,14 @@ GROUP BY tbl1.id_pendaftaran");
   $(function() {
     var areaChartData = {
       labels: [
-        <?php if (!empty($result)) {
-          foreach ($result as $k => $v) {
-            if (is_numeric($k)) {
-              echo '"'.$result[$k]["nama_desa"].'",';
-            }
-          }
-        }
+        <?php 
+        // if (!empty($result)) {
+        //   foreach ($result as $k => $v) {
+        //     if (is_numeric($k)) {
+        //       echo '"'.$result[$k]["nama_desa"].'",';
+        //     }
+        //   }
+        // }
         ?>
       ],
       datasets: [{

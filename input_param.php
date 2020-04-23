@@ -1,5 +1,5 @@
 <?php
-require_once("koneksi.php");
+require_once("database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
   $query = "INSERT INTO tbl_param(nama_param, satuan, nilai_rujukan, metoda, harga) VALUES('" . $_POST["nama_param"] . "',

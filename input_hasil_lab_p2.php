@@ -1,5 +1,5 @@
 <?php
-require_once("koneksi.php");
+require_once("database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
   $query = "INSERT INTO tbl_hasil_lab(id_hasil_lab, no_rm, umur, diagnosa, tanggal, permintaan, sampel_diterima, selesai_dikerjakan, 

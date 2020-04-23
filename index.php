@@ -34,7 +34,7 @@ ini_set("display_errors", "Off");
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Sistem Informasi Pencatatan Hasil Laboratorium PKM Sukosari</p>
 
                 <form action="log.php?op=in" method="post">
                     <div class="input-group mb-3">

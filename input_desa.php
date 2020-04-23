@@ -1,5 +1,5 @@
 <?php
-require_once("koneksi.php");
+require_once("database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
   $query = "INSERT INTO tbl_desa(id_desa, nama_desa) VALUES('" . $_POST["id_desa"] . "','" . $_POST["nama_desa"] . "')";

@@ -1,7 +1,7 @@
 <?php
 require('header.php');
 require_once("perpage.php");
-require_once("koneksi.php");
+require_once("database.php");
 $db_handle = new Koneksi();
 
 $id_param = "";
