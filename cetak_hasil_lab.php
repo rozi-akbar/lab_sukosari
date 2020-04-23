@@ -1,5 +1,5 @@
 <?php
-require_once("koneksi.php");
+require_once("database.php");
 session_start();
 $db_handle = new Koneksi();
 $id_pendaftaran = $_GET["id"];
