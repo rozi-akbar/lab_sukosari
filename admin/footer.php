@@ -14,31 +14,31 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="../plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Select2 -->
-<script src="plugins/select2/js/select2.full.min.js"></script>
+<script src="../plugins/select2/js/select2.full.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 <!-- FLOT CHARTS -->
-<script src="plugins/flot/jquery.flot.js"></script>
+<script src="../plugins/flot/jquery.flot.js"></script>
 <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
-<script src="plugins/flot-old/jquery.flot.resize.min.js"></script>
+<script src="../plugins/flot-old/jquery.flot.resize.min.js"></script>
 <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
-<script src="plugins/flot-old/jquery.flot.pie.min.js"></script>
+<script src="../plugins/flot-old/jquery.flot.pie.min.js"></script>
 <!-- date-range-picker -->
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<script src="../plugins/daterangepicker/daterangepicker.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<script src="../dist/js/demo.js"></script>
 <!-- Datetime Picker -->
-<script type="text/javascript" src="plugins/datetimepicker/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="plugins/datetimepicker/jquery-ui.min.js"></script>
-<script type="text/javascript" src="plugins/datetimepicker/jquery-ui-timepicker-addon.js"></script>
-<script type="text/javascript" src="plugins/datetimepicker/jquery-ui-sliderAccess.js"></script>
+<script type="text/javascript" src="../plugins/datetimepicker/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../plugins/datetimepicker/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../plugins/datetimepicker/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="../plugins/datetimepicker/jquery-ui-sliderAccess.js"></script>
 <script>
   // http://cariprogram.blogspot.com
   // nuramijaya@gmail.com

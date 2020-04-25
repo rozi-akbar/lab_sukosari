@@ -1,5 +1,5 @@
 <?php
-require_once("database.php");
+require_once("../database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
     $id_paket = $_POST['id_paket'];
@@ -51,11 +51,11 @@ $result = $db_handle->runQuery($query);
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form" method="post" autocomplete="off">
+            <form role="form" method="post">
                 <div class="card-body">
                     <table>
                         <tr>
-                        <td><label>No Registrasi</label></td>
+                            <td><label>No Registrasi</label></td>
                             <td><label> : </label></td>
                             <td><label><?php echo $result[0]["id_pendaftaran"]; ?></label></td>
                         </tr>

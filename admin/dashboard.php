@@ -1,6 +1,6 @@
 <?php
 require('header.php');
-require_once("database.php");
+require_once("../database.php");
 $db_handle = new Koneksi();
 $result = $db_handle->runQuery("SELECT tbl3.nama_desa FROM tbl_pendaftaran tbl1
 JOIN tbl_rm tbl2 ON tbl2.no_rm = tbl1.no_rm
@@ -59,30 +59,30 @@ GROUP BY tbl1.id_pendaftaran");
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="../plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Select2 -->
-<script src="plugins/select2/js/select2.full.min.js"></script>
+<script src="../plugins/select2/js/select2.full.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 <!-- FLOT CHARTS -->
-<script src="plugins/flot/jquery.flot.js"></script>
+<script src="../plugins/flot/jquery.flot.js"></script>
 <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
-<script src="plugins/flot-old/jquery.flot.resize.min.js"></script>
+<script src="../plugins/flot-old/jquery.flot.resize.min.js"></script>
 <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
-<script src="plugins/flot-old/jquery.flot.pie.min.js"></script>
+<script src="../plugins/flot-old/jquery.flot.pie.min.js"></script>
 <!-- date-range-picker -->
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<script src="../plugins/daterangepicker/daterangepicker.js"></script>
 <!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
+<script src="../plugins/chart.js/Chart.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<script type="text/javascript" src="dist/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="dist/js/bootstrap-datetimepicker.pt-BR.js"></script>
+<script src="../dist/js/demo.js"></script>
+<script type="text/javascript" src="../dist/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="../dist/js/bootstrap-datetimepicker.pt-BR.js"></script>
 <script type="text/javascript">
   $('#datetimepicker').datetimepicker({
     format: 'dd/MM/yyyy hh:mm:ss',
@@ -100,7 +100,7 @@ GROUP BY tbl1.id_pendaftaran");
   $(function() {
     var areaChartData = {
       labels: [
-        <?php 
+        <?php
         // if (!empty($result)) {
         //   foreach ($result as $k => $v) {
         //     if (is_numeric($k)) {

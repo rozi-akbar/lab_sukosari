@@ -17,7 +17,12 @@ if ($op == "in") {
         $_SESSION['ID'] = $result[0]['ID'];
         $_SESSION['nama'] = $result[0]['nama'];
         $_SESSION['level'] = $result[0]['level'];
-        header("location:dashboard.php");
+        
+        if ($result[0]['level']=='Admin'){
+            header("location:admin/dashboard.php");
+        } else if ($result[0]['level']=='User'){
+            header("location:dashboard.php");
+        }
     } 
     else {
         echo '<script> alert("Username atau Password salah");'

@@ -1,18 +1,18 @@
 <?php
 require('header.php');
 require_once("perpage.php");
-require_once("database.php");
+require_once("../database.php");
 $db_handle = new Koneksi();
 
-$nama = "";
-$no_ktp = "";
+$id_param = "";
+$nama_param = "";
 
 $queryCondition = "";
 if (!empty($_POST["search"])) {
     foreach ($_POST["search"] as $k => $v) {
         if (!empty($v)) {
 
-            $queryCases = array("nama", "no_ktp");
+            $queryCases = array("id_param", "nama_param");
             if (in_array($k, $queryCases)) {
                 if (!empty($queryCondition)) {
                     $queryCondition .= " AND ";
@@ -21,21 +21,21 @@ if (!empty($_POST["search"])) {
                 }
             }
             switch ($k) {
-                case "nama":
-                    $nama = $v;
-                    $queryCondition .= "nama LIKE '" . $v . "%'";
+                case "username":
+                    $id_param = $v;
+                    $queryCondition .= "id_param LIKE '" . $v . "%'";
                     break;
-                case "no_ktp":
-                    $no_ktp = $v;
-                    $queryCondition .= "no_ktp LIKE '" . $v . "%'";
+                case "nama":
+                    $nama_param = $v;
+                    $queryCondition .= "nama_param LIKE '" . $v . "%'";
                     break;
             }
         }
     }
 }
-$orderby = " ORDER BY no_rm desc";
-$sql = "SELECT * FROM tbl_rm " . $queryCondition;
-$href = 'daftar_pendaftaran.php';
+$orderby = " ORDER BY id_param asc";
+$sql = "SELECT * FROM tbl_param " . $queryCondition;
+$href = 'daftar_param.php';
 
 $perPage = 10;
 $page = 1;
@@ -60,7 +60,7 @@ if (!empty($result)) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                <h1>Input Pendaftaran</h1>
+                    <h1>Data Parameter</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -70,27 +70,27 @@ if (!empty($result)) {
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-primary" href="input_pasien.php">+ Tambah Data Pasien</a>
+                <a class="btn btn-primary" href="input_param.php">+ Tambah Data</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form name="frmSearch" method="post" action="daftar_pendaftaran.php">
+                <form name="frmSearch" method="post" action="daftar_param.php">
                     <div class="search-box">
                         <p>
-                            <input type="text" placeholder="Nama" name="search[nama]" class="demoInputBox" value="<?php echo $nama; ?>" />
-                            <input type="text" placeholder="No KTP" name="search[no_ktp]" class="demoInputBox" value="<?php echo $no_ktp; ?>" />
-                            <input type="submit" name="go" class="btnSearch" value="Search">
-                            <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_pendaftaran.php'">
+                            <input type="text" placeholder="ID Parameter" name="search[id_param]" class="demoInputBox" value="<?php echo $id_param; ?>" />
+                            <input type="text" placeholder="Nama Parameter" name="search[nama_param]" class="demoInputBox" value="<?php echo $nama_param; ?>" /><input type="submit" name="go" class="btnSearch" value="Search"><input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_user.php'">
                         </p>
                     </div>
+
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>No Rekam Medis</th>
-                                <th>No KTP</th>
-                                <th>Nama</th>
-                                <th>Tgl Lahir</th>
-                                <th>Alamat</th>
+                                <th>ID Parameter</th>
+                                <th>Nama Parameter</th>
+                                <th>Satuan</th>
+                                <th>Nilai Rujukan</th>
+                                <th>Metoda</th>
+                                <th>Harga</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -101,32 +101,25 @@ if (!empty($result)) {
                                     if (is_numeric($k)) {
                             ?>
                                         <tr>
-                                            <td><?php echo $result[$k]["no_rm"]; ?></td>
-                                            <td><?php echo $result[$k]["no_ktp"]; ?></td>
-                                            <td><?php echo $result[$k]["nama"]; ?></td>
-                                            <td><?php echo $result[$k]["tgl_lahir"]; ?></td>
-                                            <td><?php echo $result[$k]["alamat"]; ?></td>
-                                            <td align="center">
-                                                <a type="button" class="btn btn-outline-success btn-xs fas fa-check-square" href="input_pendaftaran.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
-                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
-                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
+                                            <td><?php echo $result[$k]["id_param"]; ?></td>
+                                            <td><?php echo $result[$k]["nama_param"]; ?></td>
+                                            <td><?php echo $result[$k]["satuan"]; ?></td>
+                                            <td><?php echo $result[$k]["nilai_rujukan"]; ?></td>
+                                            <td><?php echo $result[$k]["metoda"]; ?></td>
+                                            <td><?php echo $result[$k]["harga"]; ?></td>
+                                            <td>
+                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_param.php?ID=<?php echo $result[$k]["id_param"]; ?>"></a>
+                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_param.php?ID=<?php echo $result[$k]["id_param"]; ?>"></a>
                                             </td>
                                         </tr>
                                 <?php
                                     }
                                 }
-                            } else {
-                                ?>
-                                <tr>
-                                    <td colspan="6" align="center"><?php echo "Hasil pencarian tidak ada, pilih tambah data pasien terlebih dahulu"; ?></td>
-                                </tr>
-                            <?php
-
                             }
                             if (isset($result["perpage"])) {
-                            ?>
+                                ?>
                                 <tr>
-                                    <td colspan="6" align=right>
+                                    <td colspan="7" align=right>
                                         <ul class="pagination pagination-sm m-0 float-right">
                                             <?php echo $result["perpage"]; ?>
                                         </ul>

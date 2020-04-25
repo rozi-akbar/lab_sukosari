@@ -1,10 +1,10 @@
 <?php
 require('header.php');
 require_once("perpage.php");
-require_once("database.php");
+require_once("../database.php");
 $db_handle = new Koneksi();
 
-$no_rm = "";
+$username = "";
 $nama = "";
 
 $queryCondition = "";
@@ -12,7 +12,7 @@ if (!empty($_POST["search"])) {
   foreach ($_POST["search"] as $k => $v) {
     if (!empty($v)) {
 
-      $queryCases = array("tbl2.no_rm", "tbl3.nama");
+      $queryCases = array("username", "nama");
       if (in_array($k, $queryCases)) {
         if (!empty($queryCondition)) {
           $queryCondition .= " AND ";
@@ -21,23 +21,21 @@ if (!empty($_POST["search"])) {
         }
       }
       switch ($k) {
-        case "tbl2.no_rm":
-          $no_rm = $v;
-          $queryCondition .= "tbl2.no_rm LIKE '" . $v . "%'";
+        case "username":
+          $username = $v;
+          $queryCondition .= "username LIKE '" . $v . "%'";
           break;
-        case "tbl3.nama":
+        case "nama":
           $nama = $v;
-          $queryCondition .= "tbl3.nama LIKE '" . $v . "%'";
+          $queryCondition .= "nama LIKE '" . $v . "%'";
           break;
       }
     }
   }
 }
-$orderby = " ORDER BY tbl1.id_pendaftaran desc";
-$sql = "SELECT * FROM tbl_hasil tbl1
-JOIN tbl_pendaftaran tbl2 ON tbl2.id_pendaftaran=tbl1.id_pendaftaran
-JOIN tbl_rm tbl3 ON tbl3.no_rm=tbl2.no_rm" . $queryCondition . " GROUP BY tbl1.id_pendaftaran";
-$href = 'daftar_periksa2.php';
+$orderby = " ORDER BY ID desc";
+$sql = "SELECT * FROM tbl_user " . $queryCondition;
+$href = 'daftar_user.php';
 
 $perPage = 10;
 $page = 1;
@@ -62,7 +60,7 @@ if (!empty($result)) {
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Cetak Hasil LAB</h1>
+          <h1>Data User</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -72,26 +70,26 @@ if (!empty($result)) {
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <h5>Hasil Lab</h5>
+        <a class="btn btn-primary" href="input_user.php">+ Tambah Data</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <form name="frmSearch" method="post" action="daftar_periksa2.php">
+        <form name="frmSearch" method="post" action="daftar_user.php">
           <div class="search-box">
             <p>
-              <input type="text" placeholder="No rekam medis" name="search[tbl2.no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />
-              <input type="text" placeholder="Nama" name="search[tbl3.nama]" class="demoInputBox" value="<?php echo $nama; ?>" />
-              <input type="submit" name="go" class="btnSearch" value="Search">
-              <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_periksa2.php'">
+              <input type="text" placeholder="Username" name="search[username]" class="demoInputBox" value="<?php echo $username; ?>" />
+              <input type="text" placeholder="Nama" name="search[nama]" class="demoInputBox" value="<?php echo $nama; ?>" /><input type="submit" name="go" class="btnSearch" value="Search"><input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_user.php'">
             </p>
           </div>
+
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>No REG</th>
-                <th>No RM</th>
-                <th>Nama Pasien</th>
-                <th>Tanggal Input Data</th>
+                <th style="width: 10px">#</th>
+                <th>Username</th>
+                <th>Nama</th>
+                <th>Password</th>
+                <th>Level</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -102,13 +100,14 @@ if (!empty($result)) {
                   if (is_numeric($k)) {
               ?>
                     <tr>
-                      <td><?php echo $result[$k]["id_pendaftaran"]; ?></td>
-                      <td><?php echo $result[$k]["no_rm"]; ?></td>
+                      <td><?php echo $result[$k]["ID"]; ?></td>
+                      <td><?php echo $result[$k]["username"]; ?></td>
                       <td><?php echo $result[$k]["nama"]; ?></td>
-                      <td><?php echo $result[$k]["waktu_input"]; ?></td>
+                      <td><?php echo $result[$k]["password"]; ?></td>
+                      <td><?php echo $result[$k]["level"]; ?></td>
                       <td>
-                        <a type="button" class="btn btn-outline-primary btn-xs far fa-file-pdf" href="cetak_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Cetak</a>
-                        <a type="button" class="btn btn-outline-danger btn-xs far fa-trash-alt" href="delete_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Hapus</a>
+                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_user.php?ID=<?php echo $result[$k]["ID"]; ?>"></a>
+                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_user.php?ID=<?php echo $result[$k]["ID"]; ?>"></a>
                       </td>
                     </tr>
                 <?php

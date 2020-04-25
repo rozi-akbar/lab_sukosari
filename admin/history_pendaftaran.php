@@ -1,41 +1,43 @@
 <?php
 require('header.php');
 require_once("perpage.php");
-require_once("database.php");
+require_once("../database.php");
 $db_handle = new Koneksi();
 
-$nama = "";
-$no_ktp = "";
+$nama_pendaftar = "";
+$tanggal = "";
 
 $queryCondition = "";
+$groupby = "";
 if (!empty($_POST["search"])) {
     foreach ($_POST["search"] as $k => $v) {
         if (!empty($v)) {
 
-            $queryCases = array("nama", "no_ktp");
+            $queryCases = array("nama_pendaftar", "tanggal");
             if (in_array($k, $queryCases)) {
                 if (!empty($queryCondition)) {
                     $queryCondition .= " AND ";
                 } else {
-                    $queryCondition .= " WHERE ";
+                    $queryCondition .= " AND ";
+                    $groupby .= " GROUP BY p.id_pendaftaran ";
                 }
             }
             switch ($k) {
-                case "nama":
-                    $nama = $v;
-                    $queryCondition .= "nama LIKE '" . $v . "%'";
+                case "nama_pendaftar":
+                    $nama_pendaftar = $v;
+                    $queryCondition .= "rm.nama LIKE '" . $v . "%'";
                     break;
-                case "no_ktp":
-                    $no_ktp = $v;
-                    $queryCondition .= "no_ktp LIKE '" . $v . "%'";
+                case "tanggal":
+                    $tanggal = $v;
+                    $queryCondition .= "p.tgl_daftar LIKE '" . $v . "%'";
                     break;
             }
         }
     }
 }
-$orderby = " ORDER BY no_rm desc";
-$sql = "SELECT * FROM tbl_rm " . $queryCondition;
-$href = 'daftar_pendaftaran.php';
+$orderby = " ORDER BY p.id_pendaftaran desc";
+$sql = "SELECT p.id_pendaftaran, rm.no_rm, rm.nama, p.tgl_daftar FROM tbl_pendaftaran as p JOIN tbl_rm as rm ON p.no_rm = rm.no_rm" . $queryCondition . " GROUP BY p.id_pendaftaran";
+$href = 'history_pendaftaran.php';
 
 $perPage = 10;
 $page = 1;
@@ -60,7 +62,7 @@ if (!empty($result)) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                <h1>Input Pendaftaran</h1>
+                    <h1>Input Hasil LAB</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -70,27 +72,27 @@ if (!empty($result)) {
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-primary" href="input_pasien.php">+ Tambah Data Pasien</a>
+                <a class="btn btn-primary" href="daftar_pendaftaran.php">+ Tambah Pendaftaran</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form name="frmSearch" method="post" action="daftar_pendaftaran.php">
+                <form name="frmSearch" method="post" action="history_pendaftaran.php">
                     <div class="search-box">
                         <p>
-                            <input type="text" placeholder="Nama" name="search[nama]" class="demoInputBox" value="<?php echo $nama; ?>" />
-                            <input type="text" placeholder="No KTP" name="search[no_ktp]" class="demoInputBox" value="<?php echo $no_ktp; ?>" />
+                            <input type="text" placeholder="Nama Pendaftar" name="search[nama_pendaftar]" class="" value="<?php echo $nama_pendaftar; ?>" />
+                            <input type="date" name="search[tanggal]" class="" value="<?php echo $tanggal; ?>" />
                             <input type="submit" name="go" class="btnSearch" value="Search">
-                            <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_pendaftaran.php'">
+                            <input type="reset" class="btnSearch" value="Reset" onclick="window.location='history_pendaftaran.php'">
                         </p>
                     </div>
+
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>No Rekam Medis</th>
-                                <th>No KTP</th>
-                                <th>Nama</th>
-                                <th>Tgl Lahir</th>
-                                <th>Alamat</th>
+                                <th>No REG</th>
+                                <th>No RM Pendaftar</th>
+                                <th>Nama Pendaftar</th>
+                                <th>Tanggal Mendaftar</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -101,30 +103,21 @@ if (!empty($result)) {
                                     if (is_numeric($k)) {
                             ?>
                                         <tr>
+                                            <td><?php echo $result[$k]["id_pendaftaran"]; ?></td>
                                             <td><?php echo $result[$k]["no_rm"]; ?></td>
-                                            <td><?php echo $result[$k]["no_ktp"]; ?></td>
                                             <td><?php echo $result[$k]["nama"]; ?></td>
-                                            <td><?php echo $result[$k]["tgl_lahir"]; ?></td>
-                                            <td><?php echo $result[$k]["alamat"]; ?></td>
-                                            <td align="center">
-                                                <a type="button" class="btn btn-outline-success btn-xs fas fa-check-square" href="input_pendaftaran.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
-                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
-                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
+                                            <td><?php echo $result[$k]["tgl_daftar"]; ?></td>
+                                            <td>
+                                                <a type="button" class="btn btn-outline-success btn-xs fas fa-check-square" href="input_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Pilih</a>
+                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_history_pendaftaran.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Hapus</a>
                                             </td>
                                         </tr>
                                 <?php
                                     }
                                 }
-                            } else {
-                                ?>
-                                <tr>
-                                    <td colspan="6" align="center"><?php echo "Hasil pencarian tidak ada, pilih tambah data pasien terlebih dahulu"; ?></td>
-                                </tr>
-                            <?php
-
                             }
                             if (isset($result["perpage"])) {
-                            ?>
+                                ?>
                                 <tr>
                                     <td colspan="6" align=right>
                                         <ul class="pagination pagination-sm m-0 float-right">

@@ -1,7 +1,7 @@
 <?php
 require('header.php');
 require_once("perpage.php");
-require_once("database.php");
+require_once("../database.php");
 $db_handle = new Koneksi();
 
 $no_rm = "";
@@ -62,7 +62,7 @@ if (!empty($result)) {
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Data Hasil Lab</h1>
+          <h1>Cetak Hasil LAB</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->

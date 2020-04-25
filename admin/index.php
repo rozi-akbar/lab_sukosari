@@ -38,7 +38,7 @@ ini_set("display_errors", "Off");
 
                 <form action="log.php?op=in" method="post">
                     <div class="input-group mb-3">
-                        <input autocomplete="off" type="text" name="username" id="username" class="form-control" placeholder="Username">
+                        <input type="text" name="username" id="username" class="form-control" placeholder="Username">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>

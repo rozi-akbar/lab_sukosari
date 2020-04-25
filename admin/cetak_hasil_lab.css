@@ -1,0 +1,13 @@
+.tablenoborder {
+    border: 0px;
+}
+.tablewithborder {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.tablebottomborder{
+    border-bottom: 1px solid black;
+}
+.textsizesmall{
+    font-size: 12px;
+}

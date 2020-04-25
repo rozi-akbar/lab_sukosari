@@ -1,5 +1,5 @@
 <?php
-require_once("database.php");
+require_once("../database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
     $id_paket = $_POST['id_paket'];
