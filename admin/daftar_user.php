@@ -74,7 +74,7 @@ if (!empty($result)) {
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <form name="frmSearch" method="post" action="daftar_user.php">
+        <form autocomplete="off" name="frmSearch" method="post" action="daftar_user.php">
           <div class="search-box">
             <p>
               <input type="text" placeholder="Username" name="search[username]" class="demoInputBox" value="<?php echo $username; ?>" />

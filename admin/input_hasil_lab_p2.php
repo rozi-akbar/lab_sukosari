@@ -50,7 +50,7 @@ require('header.php');
         <h3 class="card-title">Input Data</h3>
       </div>
       <!-- /.card-header -->
-      <form role="form" method="POST">
+      <form autocomplete="off" role="form" method="POST">
         <div class="card-body">
           <div class="form-group">
             <label for="exampleInputEmail1">Nama</label>

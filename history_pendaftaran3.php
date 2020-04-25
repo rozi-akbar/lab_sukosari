@@ -69,7 +69,7 @@ if (!empty($result)) {
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <form name="frmSearch" method="post" action="history_pendaftaran.php">
+        <form autocomplete="off" name="frmSearch" method="post" action="history_pendaftaran.php">
           <div class="search-box">
             <p>
               <input type="text" placeholder="Nama Penyakit" name="search[no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />

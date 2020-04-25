@@ -33,7 +33,7 @@ require('header.php');
       </div>
       <!-- /.card-header -->
       <!-- form start -->
-      <form role="form" method="post">
+      <form autocomplete="off" role="form" method="post">
         <div class="card-body">
           <div class="form-group">
             <label>No Rekam Medis</label>

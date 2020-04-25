@@ -36,7 +36,7 @@ ini_set("display_errors", "Off");
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sistem Informasi Pencatatan Hasil Laboratorium PKM Sukosari</p>
 
-                <form action="log.php?op=in" method="post">
+                <form autocomplete="off" action="log.php?op=in" method="post">
                     <div class="input-group mb-3">
                         <input autocomplete="off" type="text" name="username" id="username" class="form-control" placeholder="Username">
                         <div class="input-group-append">

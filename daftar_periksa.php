@@ -76,7 +76,7 @@ if (!empty($result)) {
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <form name="frmSearch" method="post" action="daftar_periksa2.php">
+        <form autocomplete="off" name="frmSearch" method="post" action="daftar_periksa2.php">
           <div class="search-box">
             <p>
               <input type="text" placeholder="No rekam medis" name="search[tbl2.no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />
