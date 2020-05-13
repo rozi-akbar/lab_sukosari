@@ -2,10 +2,12 @@
 require('header.php');
 require_once("../database.php");
 $db_handle = new Koneksi();
-$result = $db_handle->runQuery("SELECT tbl3.nama_desa FROM tbl_pendaftaran tbl1
-JOIN tbl_rm tbl2 ON tbl2.no_rm = tbl1.no_rm
-JOIN tbl_desa tbl3 ON tbl3.id_desa = tbl2.id_desa
-GROUP BY tbl1.id_pendaftaran");
+$result = $db_handle->runQuery("select t2nama_penyakit ,COUNT(t1id_penyakit) as jumlah
+FROM (select t1.id_penyakit as t1id_penyakit, t1.id_pendaftaran as t1id_pendaftaran, t2.nama_penyakit as t2nama_penyakit
+FROM tbl_pendaftaran t1
+JOIN tbl_penyakit t2 ON t1.id_penyakit=t2.id_penyakit
+GROUP BY t1.id_pendaftaran) as T
+GROUP BY t1id_penyakit");
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -15,6 +17,12 @@ GROUP BY tbl1.id_pendaftaran");
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>Dashboard</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -43,6 +51,11 @@ GROUP BY tbl1.id_pendaftaran");
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<script>
+  
+</script>
+
 <footer class="main-footer">
   <div class="float-right d-none d-sm-block">
     <b>Version</b> 0.1
@@ -101,17 +114,17 @@ GROUP BY tbl1.id_pendaftaran");
     var areaChartData = {
       labels: [
         <?php
-        // if (!empty($result)) {
-        //   foreach ($result as $k => $v) {
-        //     if (is_numeric($k)) {
-        //       echo '"'.$result[$k]["nama_desa"].'",';
-        //     }
-        //   }
-        // }
+        if (!empty($result)) {
+          foreach ($result as $k => $v) {
+            if (is_numeric($k)) {
+              echo '"' . $result[$k]["t2nama_penyakit"] . '",';
+            }
+          }
+        }
         ?>
       ],
       datasets: [{
-        label: 'Desa',
+        label: 'Penyakit',
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         pointRadius: false,
@@ -119,7 +132,17 @@ GROUP BY tbl1.id_pendaftaran");
         pointStrokeColor: 'rgba(60,141,188,1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [10, 20, 30, 40, 50, 60, 70]
+        data: [
+          <?php
+          if (!empty($result)) {
+            foreach ($result as $k => $v) {
+              if (is_numeric($k)) {
+                echo '"' . $result[$k]["jumlah"] . '",';
+              }
+            }
+          }
+          ?>
+        ]
       }, ]
     }
 

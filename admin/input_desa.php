@@ -45,7 +45,7 @@ $uniqueID=uniqid();
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary" value="Add" name="submit">Submit</button>
+          <button type="submit" onclick="return confirm('Apakah anda yakin data yang anda masukkan sudah benar?')" class="btn btn-primary" value="Add" name="submit">Submit</button>
           <a class="btn btn-warning" href="daftar_desa.php">Cancel</a>
         </div>
       </form>

@@ -4,6 +4,7 @@ require_once("perpage.php");
 require_once("database.php");
 $db_handle = new Koneksi();
 
+$no_rm = "";
 $nama_pendaftar = "";
 $tanggal = "";
 
@@ -13,7 +14,7 @@ if (!empty($_POST["search"])) {
     foreach ($_POST["search"] as $k => $v) {
         if (!empty($v)) {
 
-            $queryCases = array("nama_pendaftar", "tanggal");
+            $queryCases = array("no_rm", "nama_pendaftar", "tanggal");
             if (in_array($k, $queryCases)) {
                 if (!empty($queryCondition)) {
                     $queryCondition .= " AND ";
@@ -23,6 +24,10 @@ if (!empty($_POST["search"])) {
                 }
             }
             switch ($k) {
+                case "no_rm":
+                    $nama_pendaftar = $v;
+                    $queryCondition .= "rm.no_rm LIKE '" . $v . "%'";
+                    break;
                 case "nama_pendaftar":
                     $nama_pendaftar = $v;
                     $queryCondition .= "rm.nama LIKE '" . $v . "%'";
@@ -79,6 +84,7 @@ if (!empty($result)) {
                 <form autocomplete="off" name="frmSearch" method="post" action="history_pendaftaran.php">
                     <div class="search-box">
                         <p>
+                            <input type="text" placeholder="No RM" name="search[no_rm]" class="" value="<?php echo $no_rm; ?>" />
                             <input type="text" placeholder="Nama Pendaftar" name="search[nama_pendaftar]" class="" value="<?php echo $nama_pendaftar; ?>" />
                             <input type="date" name="search[tanggal]" class="" value="<?php echo $tanggal; ?>" />
                             <input type="submit" name="go" class="btnSearch" value="Search">
@@ -93,7 +99,7 @@ if (!empty($result)) {
                                 <th>No RM Pendaftar</th>
                                 <th>Nama Pendaftar</th>
                                 <th>Tanggal Mendaftar</th>
-                                <th>Action</th>
+                                <th colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -107,9 +113,12 @@ if (!empty($result)) {
                                             <td><?php echo $result[$k]["no_rm"]; ?></td>
                                             <td><?php echo $result[$k]["nama"]; ?></td>
                                             <td><?php echo $result[$k]["tgl_daftar"]; ?></td>
-                                            <td>
+                                            <td align="center">
                                                 <a type="button" class="btn btn-outline-success btn-xs fas fa-check-square" href="input_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Pilih</a>
-                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_history_pendaftaran.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Hapus</a>
+                                            </td>
+                                            <td align="center">
+                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_history_pendaftaran.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Edit</a>
+                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" onclick="return confirm('Yakin Hapus?')" href="delete_history_pendaftaran.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Hapus</a>
                                             </td>
                                         </tr>
                                 <?php

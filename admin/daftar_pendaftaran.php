@@ -4,6 +4,7 @@ require_once("perpage.php");
 require_once("../database.php");
 $db_handle = new Koneksi();
 
+$no_rm = "";
 $nama = "";
 $no_ktp = "";
 
@@ -12,7 +13,7 @@ if (!empty($_POST["search"])) {
     foreach ($_POST["search"] as $k => $v) {
         if (!empty($v)) {
 
-            $queryCases = array("nama", "no_ktp");
+            $queryCases = array("no_rm", "nama", "no_ktp");
             if (in_array($k, $queryCases)) {
                 if (!empty($queryCondition)) {
                     $queryCondition .= " AND ";
@@ -21,6 +22,10 @@ if (!empty($_POST["search"])) {
                 }
             }
             switch ($k) {
+                case "no_rm":
+                    $no_rm = $v;
+                    $queryCondition .= "no_rm LIKE '" . $v . "%'";
+                    break;
                 case "nama":
                     $nama = $v;
                     $queryCondition .= "nama LIKE '" . $v . "%'";
@@ -37,7 +42,7 @@ $orderby = " ORDER BY no_rm desc";
 $sql = "SELECT * FROM tbl_rm " . $queryCondition;
 $href = 'daftar_pendaftaran.php';
 
-$perPage = 10;
+$perPage = 7;
 $page = 1;
 if (isset($_POST['page'])) {
     $page = $_POST['page'];
@@ -60,7 +65,13 @@ if (!empty($result)) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Input Pendaftaran</h1>
+
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Proses</a></li>
+                        <li class="breadcrumb-item active">Input Pendaftaran</li>
+                    </ol>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -70,13 +81,17 @@ if (!empty($result)) {
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-primary" href="input_pasien.php">+ Tambah Data Pasien</a>
+                <h3 class="card-title">Input Pendaftaran</h3>
+                <div class="card-tools">
+                    <a class="btn btn-success btn-sm" href="input_pasien.php">+ Tambah Data Pasien</a>
+                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
                 <form autocomplete="off" name="frmSearch" method="post" action="daftar_pendaftaran.php">
                     <div class="search-box">
                         <p>
+                            <input type="text" placeholder="No RM" name="search[no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />
                             <input type="text" placeholder="Nama" name="search[nama]" class="demoInputBox" value="<?php echo $nama; ?>" />
                             <input type="text" placeholder="No KTP" name="search[no_ktp]" class="demoInputBox" value="<?php echo $no_ktp; ?>" />
                             <input type="submit" name="go" class="btnSearch" value="Search">
@@ -85,13 +100,13 @@ if (!empty($result)) {
                     </div>
                     <table class="table table-bordered">
                         <thead>
-                            <tr>
+                            <tr align="center">
                                 <th>No Rekam Medis</th>
                                 <th>No KTP</th>
                                 <th>Nama</th>
                                 <th>Tgl Lahir</th>
                                 <th>Alamat</th>
-                                <th>Action</th>
+                                <th colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -107,9 +122,11 @@ if (!empty($result)) {
                                             <td><?php echo $result[$k]["tgl_lahir"]; ?></td>
                                             <td><?php echo $result[$k]["alamat"]; ?></td>
                                             <td align="center">
-                                                <a type="button" class="btn btn-outline-success btn-xs fas fa-check-square" href="input_pendaftaran.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
-                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
-                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
+                                                <a type="button" class="btn btn-outline-success btn-xs fas fa-check-square" href="input_pendaftaran.php?id=<?php echo $result[$k]["no_rm"]; ?>"> Pilih</a>
+                                            </td>
+                                            <td align="center">
+                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"> Edit</a>
+                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" onclick="return confirm('Yakin Hapus??')" href="delete_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"> Hapus</a>
                                             </td>
                                         </tr>
                                 <?php
@@ -121,12 +138,11 @@ if (!empty($result)) {
                                     <td colspan="6" align="center"><?php echo "Hasil pencarian tidak ada, pilih tambah data pasien terlebih dahulu"; ?></td>
                                 </tr>
                             <?php
-
                             }
                             if (isset($result["perpage"])) {
                             ?>
                                 <tr>
-                                    <td colspan="6" align=right>
+                                    <td colspan="7" align=right>
                                         <ul class="pagination pagination-sm m-0 float-right">
                                             <?php echo $result["perpage"]; ?>
                                         </ul>

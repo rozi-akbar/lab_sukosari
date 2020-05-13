@@ -106,8 +106,8 @@ if (!empty($result)) {
                       <td><?php echo $result[$k]["password"]; ?></td>
                       <td><?php echo $result[$k]["level"]; ?></td>
                       <td>
-                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_user.php?ID=<?php echo $result[$k]["ID"]; ?>"></a>
-                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_user.php?ID=<?php echo $result[$k]["ID"]; ?>"></a>
+                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_user.php?ID=<?php echo $result[$k]["ID"]; ?>"> Edit</a>
+                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" onclick="return confirm('Yakin Hapus?')" href="delete_user.php?ID=<?php echo $result[$k]["ID"]; ?>"> Hapus</a>
                       </td>
                     </tr>
                 <?php

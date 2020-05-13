@@ -37,7 +37,7 @@ $orderby = " ORDER BY no_rm desc";
 $sql = "SELECT * FROM tbl_rm " . $queryCondition;
 $href = 'daftar_pasien.php';
 
-$perPage = 10;
+$perPage = 7;
 $page = 1;
 if (isset($_POST['page'])) {
   $page = $_POST['page'];

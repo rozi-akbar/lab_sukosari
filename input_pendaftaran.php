@@ -1,13 +1,29 @@
 <?php
 require_once("database.php");
 $db_handle = new Koneksi();
+$thn = substr(date("Y-m-d"), 0, 4);
+$bln = substr(date("Y-m-d"), 5, 2);
+$hr = substr(date("Y-m-d"), 8, 2);
+$tgllengkap = $thn . $bln . $hr;
+$queryid = $db_handle->runQuery("SELECT id_pendaftaran from tbl_pendaftaran where id_pendaftaran LIKE '" . $tgllengkap . "%';");
+if ($queryid = null) {
+    $no_urut="001";
+    $no_urut = (int) substr($queryid[0]['id_pendaftaran'], 8, 3);
+    $no_urut++;
+    $uniqueID = $tgllengkap.sprintf("%03s",$no_urut);
+} else{
+    $queryid2 = $db_handle->runQuery("SELECT max(id_pendaftaran) as max from tbl_pendaftaran where id_pendaftaran LIKE '" . $tgllengkap . "%';");
+    $no_urut = (int) substr($queryid2[0]['max'], 8, 3);
+    $no_urut++;
+    $uniqueID = $tgllengkap.sprintf("%03s",$no_urut);
+}
 if (!empty($_POST["submit"])) {
     $id_paket = $_POST['id_paket'];
     $jumlah_dipilih = count($id_paket);
     for ($x = 0; $x < $jumlah_dipilih; $x++) {
         $query = "INSERT INTO tbl_pendaftaran(id_pendaftaran, no_rm, id_penyakit, id_paket, tgl_daftar, permintaan, status) 
         VALUES('" . $_POST["id_pendaftaran"] . "','" . $_POST["no_rm"] . "','" . $_POST["id_penyakit"] . "','$id_paket[$x]',
-        '" . $_POST["tgl_daftar"] . "','" . $_POST["permintaan"] . "','0');";
+        '" . $_POST["tgl_daftar"] . "','" . $_POST["id_tipebayar"] . "','" . $_POST["permintaan"] . "','0');";
         $result3 = $db_handle->executeQuery($query);
     }
     if (!$result3) {
@@ -17,12 +33,12 @@ if (!empty($_POST["submit"])) {
         header("Location:daftar_pendaftaran.php");
     }
 }
-require('header.php');
-$uniqueID = uniqid();
 $result = $db_handle->runQuery("SELECT * FROM tbl_rm WHERE no_rm='" . $_GET["id"] . "'");
 $result2 = $db_handle->runQuery("SELECT * FROM tbl_penyakit;");
 $result3 = $db_handle->runQuery("SELECT * FROM tbl_paket_param GROUP BY id_paket;");
 $result6 = $db_handle->runQuery("SELECT * FROM tbl_permintaan;");
+$result7 = $db_handle->runQuery("SELECT * FROM tbl_tipebayar;");
+require('header.php');
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -49,6 +65,11 @@ $result6 = $db_handle->runQuery("SELECT * FROM tbl_permintaan;");
                 <div class="card-body">
                     <table>
                         <tr>
+                            <td><label>ID Pendaftaran</label></td>
+                            <td><label> : </label></td>
+                            <td><label><?php echo $uniqueID; ?></label></td>
+                        </tr>
+                        <tr>
                             <input type="hidden" class="form-control" name="id_pendaftaran" value="<?php echo $uniqueID; ?>">
                             <input type="hidden" class="form-control" name="no_rm" value="<?php echo $result[0]["no_rm"]; ?>">
                             <td><label>Nama</label></td>
@@ -69,6 +90,25 @@ $result6 = $db_handle->runQuery("SELECT * FROM tbl_permintaan;");
                             <td><label>Tanggal</label></td>
                             <td><label> : </label></td>
                             <td><input type="text" id="datepicker" name="tgl_daftar" class="" value=""></td>
+                        </tr>
+                        <tr>
+                            <td><label>Tipe Penjamin</label></td>
+                            <td><label> : </label></td>
+                            <td>
+                                <select class="select2bs4" name="id_tipebayar">
+                                    <?php
+                                    if (!empty($result7)) {
+                                        foreach ($result7 as $a => $v) {
+                                            if (is_numeric($a)) {
+                                    ?>
+                                                <option value="<?php echo $result7[$a]["id_tipebayar"] ?>"><?php echo $result7[$a]["nama_tipebayar"]; ?></option>
+                                    <?php
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td><label>Diagnosa</label></td>
@@ -156,7 +196,7 @@ $result6 = $db_handle->runQuery("SELECT * FROM tbl_permintaan;");
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary" value="Add" name="submit">Submit</button>
+                    <button type="submit" onclick="return confirm('Apakah anda yakin data yang anda masukkan sudah benar?')" class="btn btn-primary" value="Add" name="submit">Submit</button>
                     <a class="btn btn-warning" href="daftar_pendaftaran.php">Cancel</a>
                 </div>
             </form>

@@ -37,7 +37,7 @@ $orderby = " ORDER BY id_param asc";
 $sql = "SELECT * FROM tbl_param " . $queryCondition;
 $href = 'daftar_param.php';
 
-$perPage = 10;
+$perPage = 7;
 $page = 1;
 if (isset($_POST['page'])) {
     $page = $_POST['page'];
@@ -108,8 +108,8 @@ if (!empty($result)) {
                                             <td><?php echo $result[$k]["metoda"]; ?></td>
                                             <td><?php echo $result[$k]["harga"]; ?></td>
                                             <td>
-                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_param.php?ID=<?php echo $result[$k]["id_param"]; ?>"></a>
-                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_param.php?ID=<?php echo $result[$k]["id_param"]; ?>"></a>
+                                                <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_param.php?ID=<?php echo $result[$k]["id_param"]; ?>"> Edit</a>
+                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" onclick="return confirm('Yakin Hapus?')" href="delete_param.php?ID=<?php echo $result[$k]["id_param"]; ?>"> Hapus</a>
                                             </td>
                                         </tr>
                                 <?php

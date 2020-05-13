@@ -2,7 +2,7 @@
 require_once("database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
-  $query = "INSERT INTO tbl_rm(no_rm, no_ktp, nama, tgl_lahir, alamat, id_desa) VALUES('" . $_POST["no_rm"] . "','" . $_POST["no_ktp"] . "','" . $_POST["nama"] . "','" . $_POST["tgl_lahir"] . "','" . $_POST["alamat"] . "','" . $_POST["id_desa"] . "')";
+  $query = "INSERT INTO tbl_rm(no_rm, no_ktp, nama, tgl_lahir, jenis_kelamin, alamat, id_desa) VALUES('" . $_POST["no_rm"] . "','" . $_POST["no_ktp"] . "','" . $_POST["nama"] . "','" . $_POST["tgl_lahir"] . "','" . $_POST["jenis_kelamin"] . "','" . $_POST["alamat"] . "','" . $_POST["id_desa"] . "')";
   $result = $db_handle->executeQuery($query);
   if (!$result) {
     $message = "Problem in Adding to database. Please Retry.";
@@ -12,6 +12,11 @@ if (!empty($_POST["submit"])) {
 }
 require('header.php');
 $result = $db_handle->runQuery("SELECT * FROM tbl_desa");
+$result_max = $db_handle->runQuery("SELECT max(no_rm) as max FROM tbl_rm");
+$no_urut = (int) substr($result_max[0]['max'], 2, 6);
+$no_urut++;
+$char = "RK";
+$no_rm = $char . sprintf("%06s", $no_urut);
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -21,6 +26,12 @@ $result = $db_handle->runQuery("SELECT * FROM tbl_desa");
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>Data Pasien</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="daftar_pendaftaran.php">Input Pendaftaran</a></li>
+            <li class="breadcrumb-item active">Data Pasien</li>
+          </ol>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -38,11 +49,11 @@ $result = $db_handle->runQuery("SELECT * FROM tbl_desa");
         <div class="card-body">
           <div class="form-group">
             <label>No Rekam Medis</label>
-            <input type="text" class="form-control" name="no_rm">
+            <input type="text" class="form-control" name="no_rm" value="<?php echo $no_rm; ?>">
           </div>
           <div class="form-group">
             <label>No KTP</label>
-            <input type="text" class="form-control" name="no_ktp">
+            <input type="number" class="form-control" name="no_ktp">
           </div>
           <div class="form-group">
             <label>Nama</label>
@@ -51,6 +62,13 @@ $result = $db_handle->runQuery("SELECT * FROM tbl_desa");
           <div class="form-group">
             <label>Tgl Lahir</label>
             <input type="date" class="form-control col-sm-2" name="tgl_lahir">
+          </div>
+          <div class="form-group">
+            <label>Jenis Kelamin</label>
+            <select class="form-control select2bs4 col-sm-2" name="jenis_kelamin">
+              <option value="L">Laki-laki</option>
+              <option value="P">Perempuan</option>
+            </select>
           </div>
           <div class="form-group">
             <label>Alamat</label>
@@ -76,7 +94,7 @@ $result = $db_handle->runQuery("SELECT * FROM tbl_desa");
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary" value="Add" name="submit">Submit</button>
+          <button type="submit" onclick="return confirm('Apakah anda yakin data yang anda masukkan sudah benar?')" class="btn btn-primary" value="Add" name="submit">Submit</button>
           <a class="btn btn-warning" href="daftar_pendaftaran.php">Cancel</a>
         </div>
       </form>

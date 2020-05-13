@@ -28,13 +28,13 @@ ob_start();
     <table width="100%" border="0" class="tablenoborder">
         <tr>
             <th rowspan="4">
-                <img src="dist/img/Lambang_Bondowoso2.png" width="100px" height="120px">
+                <img src="../dist/img/Lambang_Bondowoso2.png" width="100px" height="120px">
             </th>
             <th>
                 <h4>Pemerintah Kabupaten Bondowoso</h4>
             </th>
             <th rowspan="4">
-                <img src="dist/img/blank.png" width="100px" height="120px">
+                <img src="../dist/img/blank.png" width="100px" height="120px">
             </th>
         </tr>
         <tr>
@@ -151,9 +151,9 @@ ob_start();
 <?php
 $content = ob_get_contents();
 ob_end_clean();
-require_once "./mpdf/vendor/autoload.php";
-$mpdf = new \Mpdf\Mpdf();
-$mpdf->AddPage("P", "", "", "", "", "15", "15", "15", "15", "", "", "", "", "", "", "", "", "", "", "", "A4");
+require_once "../mpdf/vendor/autoload.php";
+$mpdf = new \Mpdf\Mpdf(['format' => 'Legal']);
+// $mpdf->AddPage("P", "", "", "", "", "15", "15", "15", "15", "", "", "", "", "", "", "", "", "", "", "", "A4");
 $stylesheet = file_get_contents('cetak_hasil_lab.css');
 $mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
 $mpdf->WriteHTML($content);

@@ -37,7 +37,7 @@ $orderby = " ORDER BY no_rm desc";
 $sql = "SELECT * FROM tbl_rm " . $queryCondition;
 $href = 'daftar_pasien.php';
 
-$perPage = 10;
+$perPage = 7;
 $page = 1;
 if (isset($_POST['page'])) {
   $page = $_POST['page'];
@@ -105,8 +105,8 @@ if (!empty($result)) {
                       <td><?php echo $result[$k]["nama"]; ?></td>
                       <td><?php echo $result[$k]["alamat"]; ?></td>
                       <td>
-                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
-                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"></a>
+                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"> Edit</a>
+                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_pasien.php?id=<?php echo $result[$k]["no_rm"]; ?>"> Hapus</a>
                       </td>
                     </tr>
                 <?php

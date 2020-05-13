@@ -32,7 +32,7 @@ $orderby = " ORDER BY id_penyakit desc";
 $sql = "SELECT * FROM tbl_penyakit " . $queryCondition;
 $href = 'daftar_penyakit.php';
 
-$perPage = 10;
+$perPage = 7;
 $page = 1;
 if (isset($_POST['page'])) {
   $page = $_POST['page'];
@@ -96,8 +96,8 @@ if (!empty($result)) {
                       <td><?php echo $result[$k]["id_penyakit"]; ?></td>
                       <td><?php echo $result[$k]["nama_penyakit"]; ?></td>
                       <td>
-                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_penyakit.php?id_penyakit=<?php echo $result[$k]["id_penyakit"]; ?>"></a>
-                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_penyakit.php?id_penyakit=<?php echo $result[$k]["id_penyakit"]; ?>"></a>
+                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_penyakit.php?id_penyakit=<?php echo $result[$k]["id_penyakit"]; ?>"> Edit</a>
+                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" onclick="return confirm('Yakin Hapus?')" href="delete_penyakit.php?id_penyakit=<?php echo $result[$k]["id_penyakit"]; ?>"> Hapus</a>
                       </td>
                     </tr>
                 <?php

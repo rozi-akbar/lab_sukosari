@@ -1,7 +1,13 @@
 <?php
 session_start();
 ini_set("display_errors", "Off");
-//cek level user
+if (isset($_SESSION['ID'])) {
+    if ($_SESSION['level'] == "Admin") {
+        echo '<script>window.location = "./admin/dashboard.php";</script>';
+    } else{
+        echo '<script>window.location = "./dashboard.php";</script>';
+    }
+}
 ?>  
 <!DOCTYPE html>
 <html>

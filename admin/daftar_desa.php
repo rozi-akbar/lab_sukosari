@@ -32,7 +32,7 @@ $orderby = " ORDER BY nama_desa desc";
 $sql = "SELECT * FROM tbl_desa " . $queryCondition;
 $href = 'daftar_desa.php';
 
-$perPage = 10;
+$perPage = 7;
 $page = 1;
 if (isset($_POST['page'])) {
   $page = $_POST['page'];
@@ -96,8 +96,8 @@ if (!empty($result)) {
                       <td><?php echo $result[$k]["id_desa"]; ?></td>
                       <td><?php echo $result[$k]["nama_desa"]; ?></td>
                       <td>
-                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_desa.php?id_desa=<?php echo $result[$k]["id_desa"]; ?>"></a>
-                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" href="delete_desa.php?id_desa=<?php echo $result[$k]["id_desa"]; ?>"></a>
+                        <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_desa.php?id_desa=<?php echo $result[$k]["id_desa"]; ?>"> Edit</a>
+                        <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" onclick="return confirm('Yakin Hapus?')" href="delete_desa.php?id_desa=<?php echo $result[$k]["id_desa"]; ?>"> Hapus</a>
                       </td>
                     </tr>
                 <?php

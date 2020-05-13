@@ -37,9 +37,9 @@ $orderby = " ORDER BY tbl1.id_pendaftaran desc";
 $sql = "SELECT * FROM tbl_hasil tbl1
 JOIN tbl_pendaftaran tbl2 ON tbl2.id_pendaftaran=tbl1.id_pendaftaran
 JOIN tbl_rm tbl3 ON tbl3.no_rm=tbl2.no_rm" . $queryCondition . " GROUP BY tbl1.id_pendaftaran";
-$href = 'daftar_periksa2.php';
+$href = 'daftar_periksa.php';
 
-$perPage = 10;
+$perPage = 7;
 $page = 1;
 if (isset($_POST['page'])) {
   $page = $_POST['page'];
@@ -76,23 +76,23 @@ if (!empty($result)) {
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <form autocomplete="off" name="frmSearch" method="post" action="daftar_periksa2.php">
+        <form autocomplete="off" name="frmSearch" method="post" action="daftar_periksa.php">
           <div class="search-box">
             <p>
               <input type="text" placeholder="No rekam medis" name="search[tbl2.no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />
               <input type="text" placeholder="Nama" name="search[tbl3.nama]" class="demoInputBox" value="<?php echo $nama; ?>" />
               <input type="submit" name="go" class="btnSearch" value="Search">
-              <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_periksa2.php'">
+              <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_periksa.php'">
             </p>
           </div>
           <table class="table table-bordered">
             <thead>
-              <tr>
+              <tr align="center">
                 <th>No REG</th>
                 <th>No RM</th>
                 <th>Nama Pasien</th>
                 <th>Tanggal Input Data</th>
-                <th>Action</th>
+                <th colspan="2">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -105,10 +105,13 @@ if (!empty($result)) {
                       <td><?php echo $result[$k]["id_pendaftaran"]; ?></td>
                       <td><?php echo $result[$k]["no_rm"]; ?></td>
                       <td><?php echo $result[$k]["nama"]; ?></td>
-                      <td><?php echo $result[$k]["waktu_input"]; ?></td>
-                      <td>
-                        <a type="button" class="btn btn-outline-primary btn-xs far fa-file-pdf" href="cetak_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Cetak</a>
-                        <a type="button" class="btn btn-outline-danger btn-xs far fa-trash-alt" href="delete_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Hapus</a>
+                      <td align="center"><?php echo $result[$k]["waktu_input"]; ?></td>
+                      <td align="center">
+                        <a type="button" class="btn btn-outline-success btn-xs far fa-file-pdf" href="cetak_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Cetak</a>
+                      </td>
+                      <td align="center">
+                        <a type="button" class="btn btn-outline-primary btn-xs far fa-edit" href="edit_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Edit</a>
+                        <a type="button" class="btn btn-outline-danger btn-xs far fa-trash-alt" onclick="return confirm('Yakin Hapus?')" href="delete_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Hapus</a>
                       </td>
                     </tr>
                 <?php
