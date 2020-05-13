@@ -65,7 +65,7 @@ if (!empty($result)) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Input Pendaftaran</h1>
+
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -81,7 +81,10 @@ if (!empty($result)) {
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-primary" href="input_pasien.php">+ Tambah Data Pasien</a>
+                <h3 class="card-title">Input Pendaftaran</h3>
+                <div class="card-tools">
+                    <a class="btn btn-success btn-sm" href="input_pasien.php">+ Tambah Data Pasien</a>
+                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

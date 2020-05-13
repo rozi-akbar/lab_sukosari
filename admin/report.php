@@ -33,7 +33,6 @@ require('header.php');
               <option value="paket">Per Paket</option>
               <option value="penyakit">Per Penyakit</option>
             </select>
-            <input type="text" id="coba">
           </div>
           <div class="form-group">
             <label>From - To :</label>

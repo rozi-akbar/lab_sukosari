@@ -51,6 +51,45 @@ GROUP BY t1id_penyakit");
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">About</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+          <tr>
+            <td>Nama Aplikasi</td>
+            <td>:</td>
+            <td>Sistem Informasi Manajemen Data Laboratorium</td>
+          </tr>
+          <tr>
+            <td>Dibuat dengan</td>
+            <td>:</td>
+            <td>PHP Native</td>
+          </tr>
+          <tr>
+            <td>Template menggunakan</td>
+            <td>:</td>
+            <td>Admin LTE 3</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <footer class="main-footer">
   <div class="float-right d-none d-sm-block">
     <b>Version</b> 0.1

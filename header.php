@@ -166,7 +166,7 @@ if ($_SESSION['level'] != "User") {
               </ul>
             </li>
             <li class="nav-item">
-              <a href="dashboard.php" class="nav-link">
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-default">
                 <i class="nav-icon fas fa-info-circle"></i>
                 <p>
                   About
