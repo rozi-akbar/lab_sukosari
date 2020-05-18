@@ -46,7 +46,8 @@ require('header.php');
         <div class="card-body">
           <div class="form-group">
           <label>No Rekam Medis</label>
-            <input type="text" class="form-control" name="no_rm" value="<?php echo $result[0]["no_rm"]; ?>" disabled>
+            <input type="text" class="form-control" value="<?php echo $result[0]["no_rm"]; ?>" disabled>
+            <input type="text" name="no_rm" value="<?php echo $result[0]["no_rm"]; ?>" hidden>
           </div>
           <div class="form-group">
             <label>No KTP</label>

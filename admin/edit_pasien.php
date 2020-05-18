@@ -2,7 +2,9 @@
 require_once("../database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
-  $query = "UPDATE tbl_rm SET no_ktp='" . $_POST["no_ktp"] . "', nama='" . $_POST["nama"] . "', tgl_lahir='" . $_POST["tgl_lahir"] . "', jenis_kelamin='" . $_POST["jenis_kelamin"] . "', alamat='" . $_POST["alamat"] . "', id_desa='" . $_POST["id_desa"] . "' WHERE no_rm='" . $_POST["no_rm"] . "' ";
+  $query = "UPDATE tbl_rm SET no_ktp='" . $_POST["no_ktp"] . "', nama='" . $_POST["nama"] . "', 
+  tgl_lahir='" . $_POST["tgl_lahir"] . "', jenis_kelamin='" . $_POST["jenis_kelamin"] . "', 
+  alamat='" . $_POST["alamat"] . "', id_desa='" . $_POST["id_desa"] . "' WHERE no_rm='" . $_POST["no_rm"] . "';";
   $result = $db_handle->executeQuery($query);
   if (!$result) {
     $message = "Problem in Update to database. Please Retry.";
@@ -46,7 +48,8 @@ require('header.php');
         <div class="card-body">
           <div class="form-group">
             <label>No Rekam Medis</label>
-            <input type="text" class="form-control" name="no_rm" value="<?php echo $result[0]["no_rm"]; ?>" disabled>
+            <input type="text" class="form-control" value="<?php echo $result[0]["no_rm"]; ?>" disabled>
+            <input type="text" name="no_rm" value="<?php echo $result[0]["no_rm"]; ?>" hidden>
           </div>
           <div class="form-group">
             <label>No KTP</label>
@@ -121,7 +124,7 @@ require('header.php');
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <button type="submit" onclick="return confirm('Apakah anda yakin data yang anda masukkan sudah benar?')" class="btn btn-primary" value="Add" name="submit">Submit</button>
+          <button type="submit" class="btn btn-primary" value="Add" name="submit">Submit</button>
           <a class="btn btn-warning" href="daftar_pendaftaran.php">Cancel</a>
         </div>
       </form>

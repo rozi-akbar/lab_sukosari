@@ -6,7 +6,7 @@ if (!empty($_POST["submit"])) {
     $jumlah_dipilih = count($id_param);
     for ($x = 0; $x < $jumlah_dipilih; $x++) {
         $query = "INSERT INTO tbl_paket_param(id_paket, nama_paket, harga, lab_terkait, id_param) VALUES('".$_POST["id_paket"]."',
-  '".$_POST["nama_paket"]."','".$_POST["harga"]."','".$_POST["lab_terkait"]."','$id_param[$x]')";
+  '".$_POST["nama_paket"]."','','".$_POST["lab_terkait"]."','$id_param[$x]')";
         $result = $db_handle->executeQuery($query);
     }
     if (!$result) {
@@ -49,10 +49,6 @@ $resulties = $db_handle->runQuery($queries);
                         <label>Nama Paket</label>
                         <input type="hidden" class="form-control" name="id_paket" value="<?php echo $resulties[0]["id"]; ?>">
                         <input type="text" class="form-control" name="nama_paket">
-                    </div>
-                    <div class="form-group">
-                        <label>Harga</label>
-                        <input type="text" class="form-control" name="harga">
                     </div>
                     <div class="form-group">
                         <label>Lab Terkait</label>

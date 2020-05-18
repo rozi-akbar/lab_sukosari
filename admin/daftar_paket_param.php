@@ -12,7 +12,7 @@ if (!empty($_POST["search"])) {
     foreach ($_POST["search"] as $k => $v) {
         if (!empty($v)) {
 
-            $queryCases = array("id_paket", "nama_paket");
+            $queryCases = array("t1.id_paket", "t1.nama_paket");
             if (in_array($k, $queryCases)) {
                 if (!empty($queryCondition)) {
                     $queryCondition .= " AND ";
@@ -34,7 +34,9 @@ if (!empty($_POST["search"])) {
     }
 }
 $orderby = " ORDER BY id_paket asc";
-$sql = "SELECT id_paket, nama_paket, harga, lab_terkait, COUNT(id_param) FROM tbl_paket_param GROUP BY id_paket" . $queryCondition;
+$sql = "SELECT t1.id_paket as id, t1.nama_paket, SUM(t2.harga) as harga, t1.lab_terkait, COUNT(t1.id_param) as item FROM tbl_paket_param t1
+JOIN tbl_param t2 ON t1.id_param = t2.id_param
+GROUP BY t1.id_paket" . $queryCondition;
 $href = 'daftar_paket_param.php';
 
 $perPage = 7;
@@ -100,9 +102,9 @@ if (!empty($result)) {
                                         <tr>
                                             <td><?php echo $result[$k]["nama_paket"]; ?></td>
                                             <td><?php echo $result[$k]["harga"]; ?></td>
-                                            <td><?php echo $result[$k]["COUNT(id_param)"]; ?> Item</td>
+                                            <td><?php echo $result[$k]["item"]; ?> Item</td>
                                             <td>
-                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" onclick="return confirm('Yakin Hapus?')" href="delete_paket_param.php?ID=<?php echo $result[$k]["id_paket"]; ?>"> Hapus</a>
+                                                <a type="button" class="btn btn-outline-danger btn-xs fas fa-trash-alt" onclick="return confirm('Yakin Hapus?')" href="delete_paket_param.php?ID=<?php echo $result[$k]["id"]; ?>"> Hapus</a>
                                             </td>
                                         </tr>
                                 <?php

@@ -1,6 +1,4 @@
 <?php
-require_once("../database.php");
-$db_handle = new Koneksi();
 require('header.php');
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -48,7 +46,7 @@ require('header.php');
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <button type="button" onclick="rubah()" class="btn btn-primary fas fa-check-square"> Cetak</button>
+          <button type="button" class="btn btn-primary fas fa-check-square"> Cetak</button>
         </div>
       </form>
     </div>
@@ -57,15 +55,4 @@ require('header.php');
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<script>
-  function rubah() {
-    var docpilih = document.getElementById("parameter");
-
-    var pilih = docpilih.options[docpilih.selectedIndex].value;
-    var dari = document.getElementById("dari").value;
-    var sampai = document.getElementById("sampai").value;
-
-    document.getElementById("coba").value=dari;
-  }
-</script>
 <?php include('footer.php'); ?>
