@@ -23,7 +23,7 @@ if (!empty($_POST["search"])) {
             switch ($k) {
                 case "username":
                     $id_param = $v;
-                    $queryCondition .= "id_paket LIKE '" . $v . "%'";
+                    $queryCondition .= "t1.id_paket LIKE '" . $v . "%'";
                     break;
                 case "nama":
                     $nama_param = $v;
