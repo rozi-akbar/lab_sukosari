@@ -21,8 +21,8 @@ if (!empty($_POST["submit"])) {
     $id_paket = $_POST['id_paket'];
     $jumlah_dipilih = count($id_paket);
     for ($x = 0; $x < $jumlah_dipilih; $x++) {
-        $query = "INSERT INTO tbl_pendaftaran(id_pendaftaran, no_rm, id_penyakit, id_paket, tgl_daftar, tipebayar, permintaan, status) 
-        VALUES('" . $_POST["id_pendaftaran"] . "','" . $_POST["no_rm"] . "','" . $_POST["id_penyakit"] . "','$id_paket[$x]',
+        $query = "INSERT INTO tbl_pendaftaran(id_pendaftaran, no_rm, id_paket, tgl_daftar, tipebayar, permintaan, status) 
+        VALUES('" . $_POST["id_pendaftaran"] . "','" . $_POST["no_rm"] . "','$id_paket[$x]',
         '" . $_POST["tgl_daftar"] . "','" . $_POST["tipebayar"] . "','" . $_POST["permintaan"] . "','0');";
         $result3 = $db_handle->executeQuery($query);
     }
@@ -34,7 +34,6 @@ if (!empty($_POST["submit"])) {
     }
 }
 $result = $db_handle->runQuery("SELECT * FROM tbl_rm WHERE no_rm='" . $_GET["id"] . "'");
-$result2 = $db_handle->runQuery("SELECT * FROM tbl_penyakit;");
 $result3 = $db_handle->runQuery("SELECT * FROM tbl_paket_param GROUP BY id_paket;");
 $result6 = $db_handle->runQuery("SELECT * FROM tbl_permintaan;");
 require('header.php');
@@ -104,25 +103,6 @@ require('header.php');
                                 <select class="select2bs4" name="tipebayar">
                                     <option value="Umum">Umum</option>
                                     <option value="BPJS">BPJS</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>Diagnosa</label></td>
-                            <td><label> : </label></td>
-                            <td>
-                                <select class="select2bs4" name="id_penyakit">
-                                    <?php
-                                    if (!empty($result2)) {
-                                        foreach ($result2 as $a => $v) {
-                                            if (is_numeric($a)) {
-                                    ?>
-                                                <option value="<?php echo $result2[$a]["id_penyakit"] ?>"><?php echo $result2[$a]["nama_penyakit"]; ?></option>
-                                    <?php
-                                            }
-                                        }
-                                    }
-                                    ?>
                                 </select>
                             </td>
                         </tr>

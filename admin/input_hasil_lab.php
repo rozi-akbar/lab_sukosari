@@ -7,8 +7,8 @@ if (!empty($_POST["submit"])) {
     $hasil = $_POST['hasil'];
     $jumlah_data = count($id_paket);
     for ($x = 0; $x < $jumlah_data; $x++) {
-        $query = "INSERT INTO tbl_hasil(id_pendaftaran, waktu_input, id_paket, id_param, hasil) 
-        VALUES('" . $_POST["id_pendaftaran"] . "','" . $_POST["tgl_hasil"] . "','$id_paket[$x]','$id_param[$x]','$hasil[$x]');";
+        $query = "INSERT INTO tbl_hasil(id_pendaftaran, waktu_input, id_penyakit, id_paket, id_param, hasil) 
+        VALUES('" . $_POST["id_pendaftaran"] . "','" . $_POST["tgl_hasil"] . "','" . $_POST["id_penyakit"] . "','$id_paket[$x]','$id_param[$x]','$hasil[$x]');";
         $result3 = $db_handle->executeQuery($query);
     }
     $query2 = "UPDATE tbl_pendaftaran SET status=1 WHERE id_pendaftaran='" . $_POST["id_pendaftaran"] . "'";
@@ -29,6 +29,7 @@ JOIN tbl_param t4 ON t4.id_param=t3.id_param
 WHERE t1.id_pendaftaran='" . $_GET["id"] . "'
 ORDER BY t1.id_paket, t4.id_param";
 $result = $db_handle->runQuery($query);
+$result9 = $db_handle->runQuery("SELECT * FROM tbl_penyakit;");
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -68,6 +69,25 @@ $result = $db_handle->runQuery($query);
                             <td><label>Nama</label></td>
                             <td><label> : </label></td>
                             <td><label><?php echo $result[0]["nama"]; ?></label></td>
+                        </tr>
+                        <tr>
+                            <td><label>Diagnosa</label></td>
+                            <td><label> : </label></td>
+                            <td>
+                                <select class="select2bs4" name="id_penyakit">
+                                    <?php
+                                    if (!empty($result9)) {
+                                        foreach ($result9 as $a => $v) {
+                                            if (is_numeric($a)) {
+                                    ?>
+                                                <option value="<?php echo $result9[$a]["id_penyakit"] ?>"><?php echo $result9[$a]["nama_penyakit"]; ?></option>
+                                    <?php
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td><label>Tanggal</label></td>

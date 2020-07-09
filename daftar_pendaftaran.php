@@ -92,8 +92,8 @@ if (!empty($result)) {
                     <div class="search-box">
                         <p>
                             <input type="text" placeholder="No RM" name="search[no_rm]" class="demoInputBox" value="<?php echo $no_rm; ?>" />
-                            <input type="text" placeholder="Nama" name="search[nama]" class="demoInputBox" value="<?php echo $nama; ?>" />
                             <input type="text" placeholder="No KTP" name="search[no_ktp]" class="demoInputBox" value="<?php echo $no_ktp; ?>" />
+                            <input type="text" placeholder="Nama" name="search[nama]" class="demoInputBox" value="<?php echo $nama; ?>" />
                             <input type="submit" name="go" class="btnSearch" value="Search">
                             <input type="reset" class="btnSearch" value="Reset" onclick="window.location='daftar_pendaftaran.php'">
                         </p>

@@ -41,7 +41,7 @@ if (!empty($_POST["search"])) {
     }
 }
 $orderby = " ORDER BY p.id_pendaftaran desc";
-$sql = "SELECT p.id_pendaftaran, rm.no_rm, rm.nama, p.tgl_daftar FROM tbl_pendaftaran as p JOIN tbl_rm as rm ON p.no_rm = rm.no_rm" . $queryCondition . " GROUP BY p.id_pendaftaran";
+$sql = "SELECT p.id_pendaftaran, rm.no_rm, rm.nama, p.tgl_daftar FROM tbl_pendaftaran as p JOIN tbl_rm as rm ON p.no_rm = rm.no_rm " . $queryCondition . " GROUP BY p.id_pendaftaran";
 $href = 'history_pendaftaran.php';
 
 $perPage = 7;
@@ -94,11 +94,11 @@ if (!empty($result)) {
                     <div class="search-box">
                         <table>
                             <tr>
-                                <td><input type="text" placeholder="No RM" name="search[no_rm]" class="form-control" value="<?php echo $no_rm; ?>" /></td>
-                                <td><input type="text" placeholder="Nama Pendaftar" name="search[nama_pendaftar]" class="form-control" value="<?php echo $nama_pendaftar; ?>" /></td>
-                                <td><input type="date" name="search[tanggal]" class="form-control" value="<?php echo $tanggal; ?>" /></td>
-                                <td><input type="submit" name="go" class="btnSearch btn btn-outline-success" value="Search"></td>
-                                <td><input type="reset" class="btnSearch btn btn-outline-secondary" value="Reset" onclick="window.location='history_pendaftaran.php'"></td>
+                                <td><input type="text" placeholder="No RM" name="search[no_rm]" class="" value="<?php echo $no_rm; ?>" /></td>
+                                <td><input type="text" placeholder="Nama Pendaftar" name="search[nama_pendaftar]" class="" value="<?php echo $nama_pendaftar; ?>" /></td>
+                                <td><input type="date" name="search[tanggal]" class="" value="<?php echo $tanggal; ?>" /></td>
+                                <td><input type="submit" name="go" class="" value="Search"></td>
+                                <td><input type="reset" class="" value="Reset" onclick="window.location='history_pendaftaran.php'"></td>
                             </tr>
                         </table>
                         <br />

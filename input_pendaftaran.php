@@ -1,5 +1,5 @@
 <?php
-require_once("database.php");
+require_once("./database.php");
 $db_handle = new Koneksi();
 $thn = substr(date("Y-m-d"), 0, 4);
 $bln = substr(date("Y-m-d"), 5, 2);
@@ -7,23 +7,23 @@ $hr = substr(date("Y-m-d"), 8, 2);
 $tgllengkap = $thn . $bln . $hr;
 $queryid = $db_handle->runQuery("SELECT id_pendaftaran from tbl_pendaftaran where id_pendaftaran LIKE '" . $tgllengkap . "%';");
 if ($queryid = null) {
-    $no_urut="001";
+    $no_urut = "001";
     $no_urut = (int) substr($queryid[0]['id_pendaftaran'], 8, 3);
     $no_urut++;
-    $uniqueID = $tgllengkap.sprintf("%03s",$no_urut);
-} else{
+    $uniqueID = $tgllengkap . sprintf("%03s", $no_urut);
+} else {
     $queryid2 = $db_handle->runQuery("SELECT max(id_pendaftaran) as max from tbl_pendaftaran where id_pendaftaran LIKE '" . $tgllengkap . "%';");
     $no_urut = (int) substr($queryid2[0]['max'], 8, 3);
     $no_urut++;
-    $uniqueID = $tgllengkap.sprintf("%03s",$no_urut);
+    $uniqueID = $tgllengkap . sprintf("%03s", $no_urut);
 }
 if (!empty($_POST["submit"])) {
     $id_paket = $_POST['id_paket'];
     $jumlah_dipilih = count($id_paket);
     for ($x = 0; $x < $jumlah_dipilih; $x++) {
-        $query = "INSERT INTO tbl_pendaftaran(id_pendaftaran, no_rm, id_penyakit, id_paket, tgl_daftar, permintaan, status) 
-        VALUES('" . $_POST["id_pendaftaran"] . "','" . $_POST["no_rm"] . "','" . $_POST["id_penyakit"] . "','$id_paket[$x]',
-        '" . $_POST["tgl_daftar"] . "','" . $_POST["id_tipebayar"] . "','" . $_POST["permintaan"] . "','0');";
+        $query = "INSERT INTO tbl_pendaftaran(id_pendaftaran, no_rm, id_paket, tgl_daftar, tipebayar, permintaan, status) 
+        VALUES('" . $_POST["id_pendaftaran"] . "','" . $_POST["no_rm"] . "','$id_paket[$x]',
+        '" . $_POST["tgl_daftar"] . "','" . $_POST["tipebayar"] . "','" . $_POST["permintaan"] . "','0');";
         $result3 = $db_handle->executeQuery($query);
     }
     if (!$result3) {
@@ -34,10 +34,8 @@ if (!empty($_POST["submit"])) {
     }
 }
 $result = $db_handle->runQuery("SELECT * FROM tbl_rm WHERE no_rm='" . $_GET["id"] . "'");
-$result2 = $db_handle->runQuery("SELECT * FROM tbl_penyakit;");
 $result3 = $db_handle->runQuery("SELECT * FROM tbl_paket_param GROUP BY id_paket;");
 $result6 = $db_handle->runQuery("SELECT * FROM tbl_permintaan;");
-$result7 = $db_handle->runQuery("SELECT * FROM tbl_tipebayar;");
 require('header.php');
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -48,6 +46,13 @@ require('header.php');
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Data Pendaftaran Pasien</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Proses</a></li>
+                        <li class="breadcrumb-item"><a href="daftar_pendaftaran.php">Input Pendaftaran</a></li>
+                        <li class="breadcrumb-item active">Data Pendaftaran Pasien</li>
+                    </ol>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -95,37 +100,9 @@ require('header.php');
                             <td><label>Tipe Penjamin</label></td>
                             <td><label> : </label></td>
                             <td>
-                                <select class="select2bs4" name="id_tipebayar">
-                                    <?php
-                                    if (!empty($result7)) {
-                                        foreach ($result7 as $a => $v) {
-                                            if (is_numeric($a)) {
-                                    ?>
-                                                <option value="<?php echo $result7[$a]["id_tipebayar"] ?>"><?php echo $result7[$a]["nama_tipebayar"]; ?></option>
-                                    <?php
-                                            }
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>Diagnosa</label></td>
-                            <td><label> : </label></td>
-                            <td>
-                                <select class="select2bs4" name="id_penyakit">
-                                    <?php
-                                    if (!empty($result2)) {
-                                        foreach ($result2 as $a => $v) {
-                                            if (is_numeric($a)) {
-                                    ?>
-                                                <option value="<?php echo $result2[$a]["id_penyakit"] ?>"><?php echo $result2[$a]["nama_penyakit"]; ?></option>
-                                    <?php
-                                            }
-                                        }
-                                    }
-                                    ?>
+                                <select class="select2bs4" name="tipebayar">
+                                    <option value="Umum">Umum</option>
+                                    <option value="BPJS">BPJS</option>
                                 </select>
                             </td>
                         </tr>
