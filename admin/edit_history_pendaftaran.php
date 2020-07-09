@@ -2,7 +2,7 @@
 require_once("../database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
-    $query = "UPDATE tbl_pendaftaran SET id_penyakit='" . $_POST["id_penyakit"] . "', tipebayar='" . $_POST["tipebayar"] . "', 
+    $query = "UPDATE tbl_pendaftaran SET tipebayar='" . $_POST["tipebayar"] . "', 
     tgl_daftar='" . $_POST["tgl_daftar"] . "', permintaan='" . $_POST["permintaan"] . "' 
     WHERE id_pendaftaran='" . $_POST["id_pendaftaran"] . "' ";
     $result = $db_handle->executeQuery($query);
@@ -13,14 +13,12 @@ if (!empty($_POST["submit"])) {
     }
 }
 $ID = $_GET["id"];
-$result = $db_handle->runQuery("SELECT t1.id_pendaftaran ,t1.no_rm, t1.tgl_daftar, t1.id_penyakit, t1.permintaan, t1.tipebayar, t2.nama, t2.no_ktp, t2.alamat, t3.nama_paket, t4.nama_penyakit 
+$result = $db_handle->runQuery("SELECT t1.id_pendaftaran ,t1.no_rm, t1.tgl_daftar, t1.permintaan, t1.tipebayar, t2.nama, t2.no_ktp, t2.alamat, t3.nama_paket
 FROM tbl_pendaftaran t1
 JOIN tbl_rm t2 ON t1.no_rm = t2.no_rm
 JOIN tbl_paket_param t3 ON t1.id_paket=t3.id_paket
-JOIN tbl_penyakit t4 ON t1.id_penyakit=t4.id_penyakit
 WHERE t1.id_pendaftaran='" . $ID . "'
 GROUP BY t3.id_paket;");
-$result2 = $db_handle->runQuery("SELECT * FROM tbl_penyakit;");
 $result3 = $db_handle->runQuery("SELECT * FROM tbl_paket_param GROUP BY id_paket;");
 $result6 = $db_handle->runQuery("SELECT * FROM tbl_permintaan;");
 require('header.php');
@@ -94,26 +92,6 @@ require('header.php');
                                     ?>
                                     <option value="Umum">Umum</option>
                                     <option value="BPJS">BPJS</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>Diagnosa</label></td>
-                            <td><label> : </label></td>
-                            <td>
-                                <select class="select2bs4" name="id_penyakit">
-                                    <option value="<?php echo $result[0]["id_penyakit"] ?>"><?php echo $result[0]["nama_penyakit"]; ?></option>
-                                    <?php
-                                    if (!empty($result2)) {
-                                        foreach ($result2 as $a => $v) {
-                                            if (is_numeric($a)) {
-                                    ?>
-                                                <option value="<?php echo $result2[$a]["id_penyakit"] ?>"><?php echo $result2[$a]["nama_penyakit"]; ?></option>
-                                    <?php
-                                            }
-                                        }
-                                    }
-                                    ?>
                                 </select>
                             </td>
                         </tr>

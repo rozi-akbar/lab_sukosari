@@ -39,7 +39,7 @@ JOIN tbl_pendaftaran tbl2 ON tbl2.id_pendaftaran=tbl1.id_pendaftaran
 JOIN tbl_rm tbl3 ON tbl3.no_rm=tbl2.no_rm " . $queryCondition . " GROUP BY tbl1.id_pendaftaran";
 $href = 'daftar_periksa.php';
 
-$perPage = 10;
+$perPage = 7;
 $page = 1;
 if (isset($_POST['page'])) {
   $page = $_POST['page'];

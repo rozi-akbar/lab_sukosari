@@ -44,7 +44,7 @@ $orderby = " ORDER BY p.id_pendaftaran desc";
 $sql = "SELECT p.id_pendaftaran, rm.no_rm, rm.nama, p.tgl_daftar FROM tbl_pendaftaran as p JOIN tbl_rm as rm ON p.no_rm = rm.no_rm " . $queryCondition . " GROUP BY p.id_pendaftaran";
 $href = 'history_pendaftaran.php';
 
-$perPage = 10;
+$perPage = 7;
 $page = 1;
 if (isset($_POST['page'])) {
     $page = $_POST['page'];
