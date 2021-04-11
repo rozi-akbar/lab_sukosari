@@ -3,7 +3,7 @@ class Koneksi {
 	private $host = "localhost";
 	private $user = "root";
 	private $password = "";
-	private $database = "hasil_lab3";
+	private $database = "hasil_lab";
     private $conn;
 	
 	function __construct() {
