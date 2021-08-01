@@ -26,7 +26,7 @@ require('header.php');
         <div class="card-body">
           <div class="form-group">
             <label>Pilih Data :</label>
-            <select id="parameter" class="form-control col-sm-2">
+            <select id="parameter" class="form-control col-sm-2" name="choose_data">
               <option value="parameter">Per Parameter</option>
               <option value="paket">Per Paket</option>
               <option value="penyakit">Per Penyakit</option>
@@ -35,7 +35,7 @@ require('header.php');
           <div class="form-group">
             <label>From - To :</label>
             <table>
-              <tr align="Right">
+              <tr>
                 <td><input type="date" class="form-control" name="dari" id="dari"></td>
                 <td> - </td>
                 <td><input type="date" class="form-control" name="sampai" id="sampai"></td>
@@ -44,9 +44,8 @@ require('header.php');
           </div>
         </div>
         <!-- /.card-body -->
-
         <div class="card-footer">
-          <button type="button" class="btn btn-primary fas fa-check-square"> Cetak</button>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Cetak</button>
         </div>
       </form>
     </div>

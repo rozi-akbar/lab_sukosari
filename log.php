@@ -5,7 +5,7 @@ require_once("database.php");
 $db_handle = new Koneksi();
 
 $userid = $_POST['username'];
-$psw = $_POST['password'];
+$psw = hash('sha256', md5($_POST['password']));
 $op = $_GET['op'];
 
 if ($op == "in") {

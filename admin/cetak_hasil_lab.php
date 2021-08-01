@@ -140,9 +140,7 @@ ob_start();
         <tr>
             <td></td>
             <td></td>
-            <td align="center"><u><?php echo $_SESSION['nama']; ?></u><br />
-                Pemeriksa Hasil
-            </td>
+            <td align="center">Pemeriksa Hasil<br/><br/><br/><br/><br/><u><?php echo $_SESSION['nama']; ?></u><br/>67812678681726387<br /></td>
         </tr>
     </table>
 </body>

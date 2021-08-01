@@ -27,7 +27,7 @@ require('header.php');
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Proses</a></li>
+            <li class="breadcrumb-item"><a href="#">Proses</a></li>
             <li class="breadcrumb-item"><a href="daftar_pendaftaran.php">Input Pendaftaran</a></li>
             <li class="breadcrumb-item active">Edit Data Pasien</li>
           </ol>
@@ -77,7 +77,7 @@ require('header.php');
                         echo "Laki-laki";
                       } else if ($result[$a]["jenis_kelamin"] == "P") {
                         echo "Perempuan";
-                      } else{
+                      } else {
                         echo "==Pilih==";
                       }
                       ?>

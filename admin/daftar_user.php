@@ -85,10 +85,9 @@ if (!empty($result)) {
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th style="width: 10px">#</th>
+                <th style="width: 10px">No</th>
                 <th>Username</th>
                 <th>Nama</th>
-                <th>Password</th>
                 <th>Level</th>
                 <th>Action</th>
               </tr>
@@ -96,14 +95,14 @@ if (!empty($result)) {
             <tbody>
               <?php
               if (!empty($result)) {
+                $no = 1;
                 foreach ($result as $k => $v) {
                   if (is_numeric($k)) {
               ?>
                     <tr>
-                      <td><?php echo $result[$k]["ID"]; ?></td>
+                      <td><?php echo $no; ?></td>
                       <td><?php echo $result[$k]["username"]; ?></td>
                       <td><?php echo $result[$k]["nama"]; ?></td>
-                      <td><?php echo $result[$k]["password"]; ?></td>
                       <td><?php echo $result[$k]["level"]; ?></td>
                       <td>
                         <a type="button" class="btn btn-outline-primary btn-xs fas fa-edit" href="edit_user.php?ID=<?php echo $result[$k]["ID"]; ?>"> Edit</a>
@@ -112,6 +111,7 @@ if (!empty($result)) {
                     </tr>
                 <?php
                   }
+                  $no++;
                 }
               }
               if (isset($result["perpage"])) {

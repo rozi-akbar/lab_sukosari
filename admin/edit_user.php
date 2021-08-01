@@ -3,7 +3,7 @@ require_once("../database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
   $query = "UPDATE tbl_user SET username='" . $_POST["username"] . "', nama='" . $_POST["nama"] . "', NIP='" . $_POST["NIP"] . "',
-   password='" . $_POST["password"] . "', level='" . $_POST["level"] . "' WHERE ID='" . $_POST["ID"] . "' ";
+   password='" . hash('sha256', md5($_POST['password'])) . "', level='" . $_POST["level"] . "' WHERE ID='" . $_POST["ID"] . "' ";
   $result = $db_handle->executeQuery($query);
   if (!$result) {
     $message = "Problem in Update to database. Please Retry.";
@@ -40,11 +40,11 @@ require('header.php');
           <div class="form-group">
             <label>Username</label>
             <input type="hidden" class="form-control" name="ID" value="<?php echo $result[0]["ID"]; ?>">
-            <input type="text" class="form-control" name="username" value="<?php echo $result[0]["username"]; ?>">
+            <input type="text" class="form-control" name="username" value="<?php echo $result[0]["username"]; ?>" required>
           </div>
           <div class="form-group">
             <label>Nama</label>
-            <input type="text" class="form-control" name="nama" value="<?php echo $result[0]["nama"]; ?>">
+            <input type="text" class="form-control" name="nama" value="<?php echo $result[0]["nama"]; ?>" required>
           </div>
           <div class="form-group">
             <label>NIP</label>
@@ -52,14 +52,13 @@ require('header.php');
           </div>
           <div class="form-group">
             <label>Password</label>
-            <input type="text" class="form-control" name="password" value="<?php echo $result[0]["password"]; ?>">
+            <input type="text" class="form-control" name="password" required>
           </div>
           <div class="form-group">
             <label>Level</label>
             <select class="form-control select2bs4" name="level">
-              <option value="<?php echo $result[0]["level"]; ?>"><?php echo $result[0]["level"]; ?></option>
-              <option value="Admin">Admin</option>
-              <option value="User">User</option>
+              <option value="Admin" <?php if($result[0]["level"] == "Admin"){echo 'selected';}?>>Admin</option>
+              <option value="User" <?php if($result[0]["level"] == "User"){echo 'selected';}?>>User</option>
             </select>
           </div>
         </div>
