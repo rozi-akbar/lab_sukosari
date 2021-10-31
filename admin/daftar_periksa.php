@@ -34,9 +34,15 @@ if (!empty($_POST["search"])) {
   }
 }
 
-$sql = "SELECT * FROM tbl_hasil tbl1
-JOIN tbl_pendaftaran tbl2 ON tbl2.id_pendaftaran=tbl1.id_pendaftaran
-JOIN tbl_rm tbl3 ON tbl3.no_rm=tbl2.no_rm " . $queryCondition . " GROUP BY tbl1.id_pendaftaran";
+$sql = "SELECT
+        tbl1.id_pendaftaran as 'id_pendaftaran',
+        tbl1.waktu_input as 'waktu_input',
+        tbl2.no_rm as 'no_rm',
+        tbl3.nama as 'nama'
+        FROM tbl_hasil tbl1
+        JOIN tbl_pendaftaran tbl2 ON tbl2.id_pendaftaran=tbl1.id_pendaftaran
+        JOIN tbl_rm tbl3 ON tbl3.no_rm=tbl2.no_rm " . $queryCondition . "
+        GROUP BY tbl1.id_pendaftaran";
 $href = 'daftar_periksa.php';
 $orderby = " ORDER BY tbl1.id_pendaftaran desc";
 
@@ -103,10 +109,10 @@ if (!empty($result)) {
                   if (is_numeric($k)) {
               ?>
                     <tr>
-                      <td><?php echo $result[$k]["id_pendaftaran"]; ?></td>
-                      <td><?php echo $result[$k]["no_rm"]; ?></td>
-                      <td><?php echo $result[$k]["nama"]; ?></td>
-                      <td align="center"><?php echo $result[$k]["waktu_input"]; ?></td>
+                      <td><?= $result[$k]["id_pendaftaran"] ?></td>
+                      <td><?= $result[$k]["no_rm"] ?></td>
+                      <td><?= $result[$k]["nama"] ?></td>
+                      <td align="center"><?= date_format(date_create($result[$k]["waktu_input"]),'d-m-Y H:i:s') ?></td>
                       <td align="center">
                         <a type="button" class="btn btn-outline-success btn-xs far fa-file-pdf" href="cetak_hasil_lab.php?id=<?php echo $result[$k]["id_pendaftaran"]; ?>"> Cetak</a>
                       </td>

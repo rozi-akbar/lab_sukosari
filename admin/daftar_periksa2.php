@@ -1,7 +1,7 @@
 <?php
 require('header.php');
 require_once("perpage.php");
-require_once("database.php");
+require_once("../database.php");
 $db_handle = new Koneksi();
 
 $no_rm = "";
@@ -21,11 +21,11 @@ if (!empty($_POST["search"])) {
         }
       }
       switch ($k) {
-        case "no_rm":
+        case "tbl2.no_rm":
           $no_rm = $v;
           $queryCondition .= "tbl2.no_rm LIKE '" . $v . "%'";
           break;
-        case "nama":
+        case "tbl3.nama":
           $nama = $v;
           $queryCondition .= "tbl3.nama LIKE '" . $v . "%'";
           break;
@@ -33,34 +33,14 @@ if (!empty($_POST["search"])) {
     }
   }
 }
-$orderby = " ORDER BY id_pendaftaran desc";
-$sql = "SELECT
-        tbl1.id_pendaftaran as 'id_pendaftaran',
-        tbl1.waktu_input as 'waktu_input',
-        tbl1.id_penyakit as 'id_penyakit',
-        tbl1.id_paket as 'id_paket',
-        tbl1.id_param as 'id_param',
-        tbl1.hasil as 'hasil',
-        tbl2.no_rm as 'no_rm',
-        tbl2.tipebayar as 'tipebayar',
-        tbl2.tgl_daftar as 'tgl_daftar',
-        tbl2.permintaan as 'permintaan',
-        tbl2.`status` as 'status',
-        tbl3.no_ktp as 'no_ktp',
-        tbl3.nama as 'nama',
-        tbl3.tgl_lahir as 'tgl_lahir',
-        tbl3.jenis_kelamin as 'jenis_kelamin',
-        tbl3.alamat as 'alamat',
-        tbl3.id_desa as 'id_desa'
-        FROM tbl_hasil tbl1
-        JOIN tbl_pendaftaran tbl2 ON tbl2.id_pendaftaran = tbl1.id_pendaftaran
-        JOIN tbl_rm tbl3 ON tbl3.no_rm = tbl2.no_rm 
-        " . $queryCondition . "
-        GROUP BY
-	      tbl1.id_pendaftaran";
-$href = 'daftar_periksa.php';
 
-$perPage = 10;
+$sql = "SELECT * FROM tbl_hasil tbl1
+JOIN tbl_pendaftaran tbl2 ON tbl2.id_pendaftaran=tbl1.id_pendaftaran
+JOIN tbl_rm tbl3 ON tbl3.no_rm=tbl2.no_rm " . $queryCondition . " GROUP BY tbl1.id_pendaftaran";
+$href = 'daftar_periksa.php';
+$orderby = " ORDER BY tbl1.id_pendaftaran desc";
+
+$perPage = 7;
 $page = 1;
 if (isset($_POST['page'])) {
   $page = $_POST['page'];
