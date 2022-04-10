@@ -3,7 +3,7 @@ require_once("../database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
   $query = "UPDATE tbl_user SET username='" . $_POST["username"] . "', nama='" . $_POST["nama"] . "', NIP='" . $_POST["NIP"] . "',
-   password='" . hash('sha256', md5($_POST['password'])) . "', level='" . $_POST["level"] . "' WHERE ID='" . $_POST["ID"] . "' ";
+   password='" . md5($_POST['password']) . "', level='" . $_POST["level"] . "' WHERE ID='" . $_POST["ID"] . "' ";
   $result = $db_handle->executeQuery($query);
   if (!$result) {
     $message = "Problem in Update to database. Please Retry.";

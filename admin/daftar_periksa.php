@@ -96,7 +96,7 @@ if (!empty($result)) {
             <thead>
               <tr align="center">
                 <th>No REG</th>
-                <th>No RM</th>
+                <!-- <th>No RM</th> -->
                 <th>Nama Pasien</th>
                 <th>Tanggal Input Data</th>
                 <th colspan="2">Action</th>
@@ -110,7 +110,7 @@ if (!empty($result)) {
               ?>
                     <tr>
                       <td><?= $result[$k]["id_pendaftaran"] ?></td>
-                      <td><?= $result[$k]["no_rm"] ?></td>
+                      <!-- <td><?= $result[$k]["no_rm"] ?></td> -->
                       <td><?= $result[$k]["nama"] ?></td>
                       <td align="center"><?= date_format(date_create($result[$k]["waktu_input"]),'d-m-Y H:i:s') ?></td>
                       <td align="center">

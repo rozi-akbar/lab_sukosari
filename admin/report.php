@@ -1,5 +1,6 @@
 <?php
 require('header.php');
+
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -22,23 +23,23 @@ require('header.php');
       </div>
       <!-- /.card-header -->
       <!-- form start -->
-      <form autocomplete="off" role="form" method="post">
+      <form autocomplete="off" action="./cetak_report.php" role="form" method="post">
         <div class="card-body">
           <div class="form-group">
             <label>Pilih Data :</label>
-            <select id="parameter" class="form-control col-sm-2" name="choose_data">
-              <option value="parameter">Per Parameter</option>
-              <option value="paket">Per Paket</option>
-              <option value="penyakit">Per Penyakit</option>
+            <select id="parameter" class="form-control col-sm-4" name="tipe_laporan">
+              <option value="register">Laporan Register Laboratorium</option>
+              <option value="spesimen">Laporan Spesimen Laboratorium</option>
+              <option value="rekapan_diagnosa">Laporan Rekapan Diagnosa Laboratorium</option>
             </select>
           </div>
           <div class="form-group">
             <label>From - To :</label>
             <table>
               <tr>
-                <td><input type="date" class="form-control" name="dari" id="dari"></td>
+                <td><input type="date" class="form-control" required name="dari" id="dari"></td>
                 <td> - </td>
-                <td><input type="date" class="form-control" name="sampai" id="sampai"></td>
+                <td><input type="date" class="form-control" required name="sampai" id="sampai"></td>
               </tr>
             </table>
           </div>

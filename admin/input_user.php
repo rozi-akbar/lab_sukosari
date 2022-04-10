@@ -3,7 +3,7 @@ require_once("../database.php");
 $db_handle = new Koneksi();
 if (!empty($_POST["submit"])) {
   $query = "INSERT INTO tbl_user(ID, username, nama, NIP, level, password) VALUES('" . $_POST["ID"] . "','" . $_POST["username"] . "',
-  '" . $_POST["nama"] . "','" . $_POST["NIP"] . "','" . $_POST["level"] . "','" . $_POST["password"] . "')";
+  '" . $_POST["nama"] . "','" . $_POST["NIP"] . "','" . $_POST["level"] . "','" . md5($_POST["password"]) . "')";
   $result = $db_handle->executeQuery($query);
   if (!$result) {
     $message = "Problem in Adding to database. Please Retry.";
